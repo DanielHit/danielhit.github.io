@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="编程, 复杂度," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近重读了《代码大全》这本书, 书中包括的内容非常多, 从软件设计, 代码开发,到 团队管理都有涉及,更像是一个软件编程领域的百科全书.">
+<meta name="keywords" content="编程, 复杂度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件设计的核心-控制复杂度">
+<meta property="og:url" content="http://yoursite.com/2016/08/05/complexity/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="最近重读了《代码大全》这本书, 书中包括的内容非常多, 从软件设计, 代码开发,到 团队管理都有涉及,更像是一个软件编程领域的百科全书.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件设计的核心-控制复杂度">
+<meta name="twitter:description" content="最近重读了《代码大全》这本书, 书中包括的内容非常多, 从软件设计, 代码开发,到 团队管理都有涉及,更像是一个软件编程领域的百科全书.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/05/complexity/"/>
+
+
+
+
+
+  <title>软件设计的核心-控制复杂度 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/05/complexity/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件设计的核心-控制复杂度</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-05T14:48:30+08:00">
+                2016-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/编程/" itemprop="url" rel="index">
+                    <span itemprop="name">编程</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近重读了《代码大全》这本书, 书中包括的内容非常多, 从软件设计, 代码开发,到 团队管理都有涉及,更像是一个软件编程领域的百科全书. <a id="more"></a>但是,对于书中提到的一点印象最为深刻, 其实在 《人月神话》和《卓有成效的程序员》这两本经典的书籍中都有提到, 那就是:</p>
+<blockquote>
+<h4 id="软件设计与开发的核心就在于-控制复杂度"><a href="#软件设计与开发的核心就在于-控制复杂度" class="headerlink" title="软件设计与开发的核心就在于 控制复杂度"></a>软件设计与开发的核心就在于 <em>控制复杂度</em></h4></blockquote>
+<p>这句话的核心其实包括两个问题:</p>
+<ul>
+<li>软件开发的本质问题性难题为什么是 复杂度 ？</li>
+<li>如何可以一定努力的降低我们软件系统的复杂度 ？</li>
+</ul>
+<h4 id="杂耍抛球"><a href="#杂耍抛球" class="headerlink" title="杂耍抛球"></a>杂耍抛球</h4><p>其中, 书中对于软件设计必须控制复杂度的解释原因, 使用了一个非常 有意思的比喻 - 杂耍抛球, 书中的描述如下:</p>
+<blockquote>
+<p>   你可以把它想做是一种心理上的杂耍( 边抛边接: 通过轮流抛接使两个或者两个以上的物体同时保持于空中), 程序要求你在空中保持的(精神上的)球越多,你就越可能漏掉其中的某一个, 从而导致设计或者编码上的错误<br>—- 代码大全</p>
+</blockquote>
+<p>当我读到这一段的时候, 感觉这本书的作者真是说出了软件开发者心中的痛啊! 这段话也可以说是整本书的一个核心, 其实《代码大全》这本书的所有部分都是在围绕『如何降低软件开发中的复杂度』这个观点而论述的.</p>
+<p>其实, 作者用这种, 杂耍抛球的方式非常形象的比喻了, 我们的大脑（生物结构上）本质的局限性导致的. 曾经美国人有一个非常有名的调查, 人类的大脑短期记忆能够容纳最多的不连续信息数就是7,加而或减二<br>具体可以参考心理学上被引用最多的一篇论文之一 <a href="http://psychclassics.yorku.ca/Miller/" target="_blank" rel="noopener"><em>魔数七, 加二或者减二: 人类处理能力的局限性</em></a>. 而现实问题域中，我们要处理的变量何止是7! 所以我们根本不可能同时让这么多变量一起出现在我们大脑中, 我们大脑的内存其实是非常小的, 这是我们大脑的本质的局限性所导致的.</p>
+<h4 id="没有银弹"><a href="#没有银弹" class="headerlink" title="没有银弹"></a>没有银弹</h4><p>另外从哲学的角度来说, 柏拉图认为, 任何事物都有 两个属性: <strong>本质属性</strong> 与 <strong>偶然属性</strong>. 通过本质的属性我们可以真正的区分不同事物，但是偶尔的属性并不能. 通过此原则, 我们可以将软件行业遇到的问题也分为两类, 那么软件开发过程中 本质性的 难题是什么?</p>
+<p>《人月神话》的作者认为, 软件行业中遇到的非根本问题(偶然属性)都会随着时间发展，技术的提升，会逐步解决. 但是 开发中的根本性问题 - 对于现实复杂世界本质的概念的复杂性是无法降低的. 书中写到:</p>
+<blockquote>
+<p>  一个软件系统有大量的状态，存在大量不同元素的相互叠加。 这使得软件系统的复杂性以指数的形式增长。而且，这些复杂度是软件系统的根本属性， 而不像数学和物理中那样可以建立简化的模型而忽略复杂的次要因素。</p>
+</blockquote>
+<p>《人月神话》中对于本质的复杂性无法避免, 起了一个名词, 日后基本成了这个行业的通用语: 没有银弹. 作者认为, 不要期望通过一种 万能药 能解决软件开发中所遇到的复杂性问题,复杂性不可避免. 所以 当每次一种新的 编程原因/技术框架/开发模式 等出现的时候, 当有些人大喊可以颠覆以前软件开发中的所有问题的时候的时候, 你就要小心了. 心理默默的告诉自己, <strong>没有银弹!</strong> <strong>没有银弹!</strong> <strong>没有银弹！</strong>(重要的事情说三遍)</p>
+<h4 id="降熵"><a href="#降熵" class="headerlink" title="降熵"></a>降熵</h4><p>其实，软件的复杂度从某种意义上, 用物理学第二定律来理解和加强. 物理学第二定律又叫做,熵定律: </p>
+<blockquote>
+<p>自然过程中，一个孤立系统的总混乱度（即“熵”）不会减小。</p>
+</blockquote>
+<p>换成是软件行业的背景就是, 用《程序员修炼之道》里面的解释就是:</p>
+<blockquote>
+<p>软件的熵总是倾向于最大化的，程序员们称之为“软件腐烂”。</p>
+</blockquote>
+<p>如果, 我们的开发过程中, 不要容忍任何『破窗户』，低劣的设计/错误决策/糟糕的代码,发现一个立即解决, 如果留下，他们会扩散，直至让你的整个系统崩溃.</p>
+<p>程序员只有在开发过程中,也只有通过不断的外部做功, 不断主动性的思考和重构你的代码, 通过外部系统注入能量,来降低整个软件系统的熵, 是整个软件系统有序的状态.</p>
+<p>为此软件开发行业提出了一些列的原则和指导方法, 重构 / 单元测试/ 模块化设计 / KISS原则/ 面向接口编程/ 模式设计/ 分布式系统等等如此, 其实你都会发现, 这些方法和指导原则,根本都是 告诉程序员, 在软件开发的过程中, 通过这些方法降低软件系统整体的复杂度, 以便后期更好的维护与开发. 当软件复杂度可以得到很好的控制，而不是让软件的熵无限的增长, 那么这个软件系统的寿命也就会很长,更容易后期的维护与扩展.</p>
+<p>所以, 我们知道:软件开发中的本质难题是 复杂度, 那么我们在之后开发中 应该时刻的主动思考和做功: 如何通过不断的代码重构降低整体的复杂度. 保持我们的代码熵的最小化.</p>
+<hr>
+<p>最后，让我们的代码 永垂不朽 ！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程-复杂度/" rel="tag"># 编程, 复杂度</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/31/rd-grow-up-advice/" rel="next" title="RD如何加速自己的成长速度">
+                <i class="fa fa-chevron-left"></i> RD如何加速自己的成长速度
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/09/why-multithread-is-a-bad-idea/" rel="prev" title="为什么多线程是个坏主意（Why Threads Are A Bad Idea）">
+                为什么多线程是个坏主意（Why Threads Are A Bad Idea） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件设计与开发的核心就在于-控制复杂度"><span class="nav-number">1.</span> <span class="nav-text">软件设计与开发的核心就在于 控制复杂度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#杂耍抛球"><span class="nav-number">2.</span> <span class="nav-text">杂耍抛球</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有银弹"><span class="nav-number">3.</span> <span class="nav-text">没有银弹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#降熵"><span class="nav-number">4.</span> <span class="nav-text">降熵</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

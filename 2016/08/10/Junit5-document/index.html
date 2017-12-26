@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="编程, junit5," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Junit 是Java中使用最多的第三方库, 在Java测试体系中占据了极为重要的位置. 目前JUnit 5 已经发版,以下是官方用户使用手册的中文翻译, 以供参考.">
+<meta name="keywords" content="编程, junit5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Junit 5 用户手册">
+<meta property="og:url" content="http://yoursite.com/2016/08/10/Junit5-document/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Junit 是Java中使用最多的第三方库, 在Java测试体系中占据了极为重要的位置. 目前JUnit 5 已经发版,以下是官方用户使用手册的中文翻译, 以供参考.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Junit 5 用户手册">
+<meta name="twitter:description" content="Junit 是Java中使用最多的第三方库, 在Java测试体系中占据了极为重要的位置. 目前JUnit 5 已经发版,以下是官方用户使用手册的中文翻译, 以供参考.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/08/10/Junit5-document/"/>
+
+
+
+
+
+  <title>Junit 5 用户手册 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/10/Junit5-document/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Junit 5 用户手册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-10T14:48:30+08:00">
+                2016-08-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Junit 是Java中使用最多的第三方库, 在Java测试体系中占据了极为重要的位置. 目前JUnit 5 已经发版,以下是官方用户使用手册的中文翻译, 以供参考.</p>
+<a id="more"></a>
+<!-- ## 目录
+[TOC]
+ -->
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>本文档是为了提供全面的 参考手册, 程序员编写测试用例，插件作者，引擎作者，同样提供 工具和IDE的开发者.</p>
+<h3 id="1-1-Junit5-有什么特点"><a href="#1-1-Junit5-有什么特点" class="headerlink" title="1.1 Junit5 有什么特点"></a>1.1 Junit5 有什么特点</h3><p>不像之前的Junit的版本, Junit5 是有由来自3个不同的子项目组合起来的.</p>
+<blockquote>
+<h3 id="Junit5-JUnit-Platform-JUnit-Jupiter-JUnit-Vintage"><a href="#Junit5-JUnit-Platform-JUnit-Jupiter-JUnit-Vintage" class="headerlink" title="Junit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage"></a>Junit5 = <em>JUnit Platform</em> + <em>JUnit Jupiter</em> + <em>JUnit Vintage</em></h3></blockquote>
+<ul>
+<li><p><strong>Junit Platform</strong> Junit平台在JVM的平台上提供了 基础的测试框架. 它同样提供了  <a href="http://junit.org/junit5/docs/current/api/org/junit/platform/engine/TestEngine.html" target="_blank" rel="noopener">TestEngine</a>的API接口,以用于 在平台上开发测试框架. 更重要的是，这个Junit平台提供了一个命令行应用程序和在maven以及Gradle商家编程插件, 来进行单元测试</p>
+</li>
+<li><p><strong>JUnit Jupiter</strong> 是一个 Junit5 新的单元测试编程模型. Jupiter 子项目提供了 TestEngine 以用于运行 Juniter. </p>
+</li>
+<li><p><strong>Junit Vintage</strong> 提供了一个 运行 Junit3 和 Junit4 的TestEngine的平台.</p>
+</li>
+</ul>
+<h3 id="1-2-支持的Java版本"><a href="#1-2-支持的Java版本" class="headerlink" title="1.2 支持的Java版本"></a>1.2 支持的Java版本</h3><p>Junit5 在运行时需要依赖Java8. 但是, 你依然可以测试通过之前JDK版本号编译的代码. </p>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2 安装"></a>2 安装</h2><p>对于final release 和 milestones版本的构件(Artifacts)都部署到了Maven Central.<br>Snapshot的构建部署到了 Sonatype的 仓库,路径在 /org/junit.</p>
+<h3 id="2-1-Dependency-Metadata"><a href="#2-1-Dependency-Metadata" class="headerlink" title="2.1. Dependency Metadata"></a>2.1. Dependency Metadata</h3><h4 id="2-1-1-JUnit-Platform"><a href="#2-1-1-JUnit-Platform" class="headerlink" title="2.1.1. JUnit Platform"></a>2.1.1. JUnit Platform</h4><p>Group ID: org.junit.platform<br>Version: 1.0.0-M2</p>
+<p>Artifact IDs:<br>junit-platform-commons<br>junit-platform-console<br>junit-platform-engine<br>junit-platform-gradle-plugin<br>junit-platform-launcher<br>junit-platform-runner<br>junit-platform-surefire-provider</p>
+<h4 id="2-1-2-JUnit-Jupiter"><a href="#2-1-2-JUnit-Jupiter" class="headerlink" title="2.1.2. JUnit Jupiter"></a>2.1.2. JUnit Jupiter</h4><p>Group ID: org.junit.jupiter<br>Version: 5.0.0-M2<br>Artifact IDs:<br>junit-jupiter-api<br>junit-jupiter-engine</p>
+<h4 id="2-1-3-JUnit-Vintage"><a href="#2-1-3-JUnit-Vintage" class="headerlink" title="2.1.3. JUnit Vintage"></a>2.1.3. JUnit Vintage</h4><p>Group ID: org.junit.vintage<br>Version: 4.12.0-M2<br>Artifact ID: junit-vintage-engine</p>
+<h3 id="2-2-JUnit-Jupiter-Sample-Projects"><a href="#2-2-JUnit-Jupiter-Sample-Projects" class="headerlink" title="2.2. JUnit Jupiter Sample Projects"></a>2.2. JUnit Jupiter Sample Projects</h3><p><a href="https://github.com/junit-team/junit5-samples" target="_blank" rel="noopener">Junit5-samples</a> 项目代码仓库托管了一系列的 基于 <code>Junit Jupiter</code> 和 <code>Junit Vintage</code> 示例项目. 你将会在一下的项目中发现 相对应的 <code>build.gradle</code> 和 <code>pom.xml</code>文件:</p>
+<ul>
+<li>对于Gradle项目, 检查 <code>junit5-gradle-consumer</code> 项目</li>
+<li>对于Maven项目, 检查 <code>junit5-maven-consumer</code> 项目</li>
+</ul>
+<h2 id="3-编写测试用例"><a href="#3-编写测试用例" class="headerlink" title="3 编写测试用例"></a>3 编写测试用例</h2><p><em>第一个测试用例</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FirstJUnit5Tests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">myFirstTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="number">2</span>, <span class="number">1</span> + <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-1-注解"><a href="#3-1-注解" class="headerlink" title="3.1 注解"></a>3.1 注解</h3><p><code>Junit Jupiter</code> 支持以下的注解用于测试配置 和 拓展 框架</p>
+<p>所有核心的注解都位于  <code>junit-jupiter-api</code> 模块的 <code>org.junit.jupiter.api</code>的包下面.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">注解名称</th>
+<th style="text-align:right">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">@Test</td>
+<td style="text-align:right">声明这个方法为测试方法</td>
+</tr>
+<tr>
+<td style="text-align:left">@TestFactory</td>
+<td style="text-align:right">声明这个方法是针对于<a href="http://junit.org/junit5/docs/current/user-guide/#writing-tests-dynamic-tests" target="_blank" rel="noopener">dynamic tests</a>测试工厂</td>
+</tr>
+<tr>
+<td style="text-align:left">@DisplayName</td>
+<td style="text-align:right">给这个类或者方法设定一个特殊的名字</td>
+</tr>
+<tr>
+<td style="text-align:left">@BeforeEach</td>
+<td style="text-align:right">声明这个方法将在每一个测试方法之前进行执行,类似于 <code>Junit4</code>中的 <code>@Before</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@AfterEach</td>
+<td style="text-align:right">声明这个方法将在每一个测试方法之后进行执行,类似于 <code>Junit4</code>中的 <code>@After</code></td>
+</tr>
+<tr>
+<td style="text-align:left">@BeforeAll</td>
+<td style="text-align:right">声明这个方法将在所有的测试方法之前进行执行, 类似于 <code>Junit4</code> 中的 <code>@BeforeClass</code>, 所有被注解的方法都必须是<code>静态的</code>和<em>可继承的</em></td>
+</tr>
+<tr>
+<td style="text-align:left">@AfterAll</td>
+<td style="text-align:right">声明这个方法将在所有的测试方法之后进行执行, 类似于 <code>Junit4</code> 中的 <code>@AfterClass</code>, 所有被注解的方法都必须是<code>静态的</code>和<em>可继承的</em></td>
+</tr>
+<tr>
+<td style="text-align:left">@Nested</td>
+<td style="text-align:right">声明这个方法是 一个嵌套的, 非静态的方法, 由于Java语言的限制, @BeforeAll 和 @AfterAll 方法都不能被用在 @Nested注解的方法上</td>
+</tr>
+<tr>
+<td style="text-align:left">@Tag</td>
+<td style="text-align:right">被用于通过声明 标签来过滤测试方法, 既不是在方法级别也不是在类的级别上. 相当于 Junit 4中的 测试组</td>
+</tr>
+<tr>
+<td style="text-align:left">@Disabled</td>
+<td style="text-align:right">用于声明一个测试方法或者测试类失效, 相当于 Junit 4 中的 @Ignore</td>
+</tr>
+<tr>
+<td style="text-align:left">@ExtendWith</td>
+<td style="text-align:right">被用于使用在 用户定制的扩展组件上</td>
+</tr>
+</tbody>
+</table>
+<h4 id="3-1-1-元注解-和-组合注解"><a href="#3-1-1-元注解-和-组合注解" class="headerlink" title="3.1.1 元注解 和 组合注解"></a>3.1.1 元注解 和 组合注解</h4><p><code>Junit Jupiter</code> 注解可以被用于元注解. 这意味着, 你可以定义自己的定制的注解, 定制的注解就可以从 元注解进行继承.</p>
+<p>举个例子, 与其不断的通过代码复制和粘贴 <code>@Tag(&quot;fast&quot;)</code> , 你可以创建如下定制化的组合注解 <code>@Fast</code>. <code>@Fast</code>可以被用于 替代 <code>@Tag(&quot;fast&quot;)</code>.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.annotation.ElementType;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Retention;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.RetentionPolicy;</span><br><span class="line"><span class="keyword">import</span> java.lang.annotation.Target;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Tag;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Target</span>(&#123; ElementType.TYPE, ElementType.METHOD &#125;)</span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Tag</span>(<span class="string">"fast"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Fast &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-标准的测试类"><a href="#3-2-标准的测试类" class="headerlink" title="3.2 标准的测试类"></a>3.2 标准的测试类</h3><p><em>一个标准的单元测试</em></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.fail;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.AfterAll;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.AfterEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeAll;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Disabled;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StandardTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeAll</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">succeedingTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">failingTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        fail(<span class="string">"a failing test"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@Disabled</span>(<span class="string">"for demonstration purposes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">skippedTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// not executed</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterEach</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">tearDown</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AfterAll</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">tearDownAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>任何测试类和测试方法都必须是 <code>public</code></p>
+</blockquote>
+<h3 id="3-3-展示名称-DisplayName"><a href="#3-3-展示名称-DisplayName" class="headerlink" title="3.3 展示名称(DisplayName)"></a>3.3 展示名称(DisplayName)</h3><p>测试类和测试方法都可以声明定制的特殊的名称, 通过 空间/特殊的字符, 甚至是emojis表情. 定制的名称将被用于在展示测试任务和测试报告之中.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.DisplayName;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="meta">@DisplayName</span>(<span class="string">"A special test case"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DisplayNameDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"Custom test name containing spaces"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWithDisplayNameContainingSpaces</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"╯°□°）╯"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWithDisplayNameContainingSpecialCharacters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"😱"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWithDisplayNameContainingEmoji</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-断言-Assertions"><a href="#3-4-断言-Assertions" class="headerlink" title="3.4 断言(Assertions)"></a>3.4 断言(Assertions)</h3><p><code>Junit Jupiter</code> 继承了 许多 <code>Junit 4</code>中的断言方法, 同时增加了 一些适配 Java 8 lambdas特点的方法. 所有的 <code>Junit Jupiter</code> 都是静态方法, 在 <a href="http://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assertions.html" target="_blank" rel="noopener">org.junit.jupiter.Assertions</a>类中.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertAll;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertTrue;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.expectThrows;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AssertionsDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">standardAssertions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">        assertEquals(<span class="number">4</span>, <span class="number">4</span>, <span class="string">"The optional assertion message is now the last parameter."</span>);</span><br><span class="line">        assertTrue(<span class="number">2</span> == <span class="number">2</span>, () -&gt; <span class="string">"Assertion messages can be lazily evaluated -- "</span></span><br><span class="line">                + <span class="string">"to avoid constructing complex messages unnecessarily."</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">groupedAssertions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// In a grouped assertion all assertions are executed, and any</span></span><br><span class="line">        <span class="comment">// failures will be reported together.</span></span><br><span class="line">        assertAll(<span class="string">"address"</span>,</span><br><span class="line">            () -&gt; assertEquals(<span class="string">"John"</span>, address.getFirstName()),</span><br><span class="line">            () -&gt; assertEquals(<span class="string">"User"</span>, address.getLastName())</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">exceptionTesting</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Throwable exception = expectThrows(IllegalArgumentException.class, () -&gt; &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"a message"</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        assertEquals(<span class="string">"a message"</span>, exception.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-假定-Assumptions"><a href="#3-5-假定-Assumptions" class="headerlink" title="3.5 假定(Assumptions)"></a>3.5 假定(Assumptions)</h3><p><code>Junit Jupiter</code> 继承了Junit 4中 一部分假定方法, 同时提供了 部分借用Java 8 lambdas的特性. 所有的 <code>Junit Jupiter</code> assumptions都是静态的方法,在 <a href="http://junit.org/junit5/docs/current/api/org/junit/jupiter/api/Assumptions.html" target="_blank" rel="noopener">org.junit.jupiter.Assumptions</a>类中进行定义. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assumptions.assumeTrue;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assumptions.assumingThat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AssumptionsDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testOnlyOnCiServer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assumeTrue(<span class="string">"CI"</span>.equals(System.getenv(<span class="string">"ENV"</span>)));</span><br><span class="line">        <span class="comment">// remainder of test</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testOnlyOnDeveloperWorkstation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assumeTrue(<span class="string">"DEV"</span>.equals(System.getenv(<span class="string">"ENV"</span>)),</span><br><span class="line">            () -&gt; <span class="string">"Aborting test: not on developer workstation"</span>);</span><br><span class="line">        <span class="comment">// remainder of test</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testInAllEnvironments</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        assumingThat(<span class="string">"CI"</span>.equals(System.getenv(<span class="string">"ENV"</span>)),</span><br><span class="line">            () -&gt; &#123;</span><br><span class="line">                <span class="comment">// perform these assertions only on the CI server</span></span><br><span class="line">                assertEquals(<span class="number">2</span>, <span class="number">2</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// perform these assertions in all environments</span></span><br><span class="line">        assertEquals(<span class="string">"a string"</span>, <span class="string">"a string"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-6-禁用测试-Disabling-Tests"><a href="#3-6-禁用测试-Disabling-Tests" class="headerlink" title="3.6 禁用测试(Disabling Tests)"></a>3.6 禁用测试(Disabling Tests)</h3><p>以下是一个禁用测试的测试单元.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Disabled;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Disabled</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DisabledClassDemo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWillBeSkipped</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样, 这里也可以禁用单个测试方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Disabled;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DisabledTestsDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Disabled</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWillBeSkipped</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testWillBeExecuted</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-7-标签和过滤-Tagging-and-Filtering"><a href="#3-7-标签和过滤-Tagging-and-Filtering" class="headerlink" title="3.7 标签和过滤(Tagging and Filtering)"></a>3.7 标签和过滤(Tagging and Filtering)</h3><p>测试类和方法可以被打上标签. 这些标签可以被之后用来过滤 <a href="http://junit.org/junit5/docs/current/user-guide/#running-tests" target="_blank" rel="noopener">test discovery and execution</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Tag;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Tag</span>(<span class="string">"fast"</span>)</span><br><span class="line"><span class="meta">@Tag</span>(<span class="string">"model"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TaggingDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@Tag</span>(<span class="string">"taxes"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">testingTaxCalculation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-8-嵌套测试-Nested-Tests"><a href="#3-8-嵌套测试-Nested-Tests" class="headerlink" title="3.8 嵌套测试(Nested Tests)"></a>3.8 嵌套测试(Nested Tests)</h3><p>嵌套测试给我们的测试者提供 表达不同测试组之间关系的功能. 以下是一个定制的例子:</p>
+<p><em>嵌套测试单元以用来测试一个堆栈</em><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertFalse;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertThrows;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertTrue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.EmptyStackException;</span><br><span class="line"><span class="keyword">import</span> java.util.Stack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.DisplayName;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Nested;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"></span><br><span class="line"><span class="meta">@DisplayName</span>(<span class="string">"A stack"</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestingAStackDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Stack&lt;Object&gt; stack;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"is instantiated with new Stack()"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">isInstantiatedWithNew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Nested</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"when new"</span>)</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">WhenNew</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@BeforeEach</span></span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">createNewStack</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="meta">@DisplayName</span>(<span class="string">"is empty"</span>)</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            assertTrue(stack.isEmpty());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="meta">@DisplayName</span>(<span class="string">"throws EmptyStackException when popped"</span>)</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">throwsExceptionWhenPopped</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            assertThrows(EmptyStackException.class, () -&gt; stack.pop());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Test</span></span><br><span class="line">        <span class="meta">@DisplayName</span>(<span class="string">"throws EmptyStackException when peeked"</span>)</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">throwsExceptionWhenPeeked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            assertThrows(EmptyStackException.class, () -&gt; stack.peek());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Nested</span></span><br><span class="line">        <span class="meta">@DisplayName</span>(<span class="string">"after pushing an element"</span>)</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">AfterPushing</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            String anElement = <span class="string">"an element"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@BeforeEach</span></span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">pushAnElement</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                stack.push(anElement);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Test</span></span><br><span class="line">            <span class="meta">@DisplayName</span>(<span class="string">"it is no longer empty"</span>)</span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                assertFalse(stack.isEmpty());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Test</span></span><br><span class="line">            <span class="meta">@DisplayName</span>(<span class="string">"returns the element when popped and is empty"</span>)</span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">returnElementWhenPopped</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                assertEquals(anElement, stack.pop());</span><br><span class="line">                assertTrue(stack.isEmpty());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Test</span></span><br><span class="line">            <span class="meta">@DisplayName</span>(<span class="string">"returns the element when peeked but remains not empty"</span>)</span><br><span class="line">            <span class="function"><span class="keyword">void</span> <span class="title">returnElementWhenPeeked</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                assertEquals(anElement, stack.peek());</span><br><span class="line">                assertFalse(stack.isEmpty());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>只有非静态的嵌套类(如:内部类) 可以被标记为 <code>@Nested</code> 测试. 嵌套可以是任意的深度, 并且这些内部类可以被认为是测试类中全部的组成部分, 除了一个例外: <code>@BeforeAll</code> 和 <code>@AfterAll</code> 不起作用, 因为 Java 并不允许 <code>static</code> 成员在内部勒类中. </p>
+</blockquote>
+<h3 id="3-9-对于构造函数和方法的依赖注入"><a href="#3-9-对于构造函数和方法的依赖注入" class="headerlink" title="3.9 对于构造函数和方法的依赖注入"></a>3.9 对于构造函数和方法的依赖注入</h3><p>在之前所有的 Junit版本中, 测试构造函数或者方法并不允许有参数(至少在标准的测试应用中). 作为<code>Junit Jupiter</code>的一个主要变化, 测试构造函数和方法现在都被允许拥有参数. 这就提高了测试的灵活性, 同时构造函数和方法的依赖注入.</p>
+<ul>
+<li><a href="http://junit.org/junit5/docs/current/api/org/junit/jupiter/api/extension/ParameterResolver.html" target="_blank" rel="noopener">ParameterResolver</a>定义了在运行期间动态的解析参数值的API接口. 如果一个测试单元的构造函数或者 一个 @Test, @TestFactory, @BeforeEach, @AfterEach, @BeforeAll, 和 @AfterAll 注解的方法接受了一个参数, 这个参数必须在 运行的时候通过一个注册的 <code>ParameterResolver</code> 进行解析.这里有两个内置的自动注册的解析器:<br><code>TestInfoParameterResolver</code>: 如果一个方法参数 是一种 <code>TestInfo</code>类型, 则<code>TestInfoParameterResolver</code> 将会自动的 获取一个 <code>TestInfo</code> 实例获取值. 这个 <code>TestInfo</code>可以被用于 获取一个测试的 展示名称, 测试的类, 测试的方法 或者对应的标签tags. 展示名称要么是一个技术名称, 比如 测试类的或者测试方法的名字, 要么是一个 通过 <code>@DisplayName</code> 定制化的名称. </li>
+</ul>
+<p><a href="http://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestInfo.html" target="_blank" rel="noopener">TestInfo</a> 作为一个替换 Junit 4 中 <code>TestName</code>的方法. 以下是具体的使用例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertTrue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.DisplayName;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Tag;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.TestInfo;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestInfoDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(TestInfo testInfo)</span> </span>&#123;</span><br><span class="line">        String displayName = testInfo.getDisplayName();</span><br><span class="line">        assertTrue(displayName.equals(<span class="string">"TEST 1"</span>) || displayName.equals(<span class="string">"test2()"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="meta">@DisplayName</span>(<span class="string">"TEST 1"</span>)</span><br><span class="line">    <span class="meta">@Tag</span>(<span class="string">"my tag"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test1</span><span class="params">(TestInfo testInfo)</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="string">"TEST 1"</span>, testInfo.getDisplayName());</span><br><span class="line">        assertTrue(testInfo.getTags().contains(<span class="string">"my tag"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/junit-team/junit5/blob/r5.0.0-M2/junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestReporterParameterResolver.java" target="_blank" rel="noopener">TestReporterParameterResolver</a>: 如果一个方法的参数 是一个 <a href="http://junit.org/junit5/docs/current/api/org/junit/jupiter/api/TestReporter.html" target="_blank" rel="noopener">TestReport</a> 类型, 这个 <code>TestReporterParameterResolver</code> 将会 获取一个 TestReport实例. 这个 TestReport将会被用于输出目前测试运行中的数据. 这些数据将被可以用于 <a href="http://junit.org/junit5/docs/current/api/org/junit/platform/launcher/TestExecutionListener.html" target="_blank" rel="noopener">TestExecutionListener</a>.reportingEntryPublished() 同时将会被IDEs使用, 或者被包含在测试报告中. </li>
+</ul>
+<p>在<code>Junit Jupiter</code> 中, 你应该使用 TestReport 来打印Junit 4的<code>stdout</code>和<code>stderr</code>. 通过使用 @RunWith(JUnitPlatform.class)将会将所有的报告都进入到 <code>stdout</code>. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.TestReporter;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestReporterDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reportSingleValue</span><span class="params">(TestReporter testReporter)</span> </span>&#123;</span><br><span class="line">        testReporter.publishEntry(<span class="string">"a key"</span>, <span class="string">"a value"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reportSeveralValues</span><span class="params">(TestReporter testReporter)</span> </span>&#123;</span><br><span class="line">        HashMap&lt;String, String&gt; values = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        values.put(<span class="string">"user name"</span>, <span class="string">"dk38"</span>);</span><br><span class="line">        values.put(<span class="string">"award year"</span>, <span class="string">"1974"</span>);</span><br><span class="line"></span><br><span class="line">        testReporter.publishEntry(values);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>其他的参数解析器可以通过 使用 @ExtendWith注解来进行扩展开发. </p>
+</blockquote>
+<p>检出的 <a href="https://github.com/junit-team/junit5-samples/blob/r5.0.0-M2/junit5-mockito-extension/src/main/java/com/example/mockito/MockitoExtension.java" target="_blank" rel="noopener">MockitoExtension</a>类, 比如 一个定制的 ParameterResolver解析器, 同时还没有完全达到生产环境的标准, 它演示了 扩展模型和参数解析流程的 简洁性和直观性. MyMockitoTest显示了如何注入一个Mockito 到  @BeforeEach and @Test 方法中.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mockito.Mockito.when;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.BeforeEach;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.extension.ExtendWith;</span><br><span class="line"><span class="keyword">import</span> org.mockito.Mock;</span><br><span class="line"><span class="keyword">import</span> com.example.Person;</span><br><span class="line"><span class="keyword">import</span> com.example.mockito.MockitoExtension;</span><br><span class="line"></span><br><span class="line"><span class="meta">@ExtendWith</span>(MockitoExtension.class)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyMockitoTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@BeforeEach</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(@Mock Person person)</span> </span>&#123;</span><br><span class="line">        when(person.getName()).thenReturn(<span class="string">"Dilbert"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">simpleTestWithInjectedMock</span><span class="params">(@Mock Person person)</span> </span>&#123;</span><br><span class="line">        assertEquals(<span class="string">"Dilbert"</span>, person.getName());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-10-接口默认的方法-Interface-Default-Methods"><a href="#3-10-接口默认的方法-Interface-Default-Methods" class="headerlink" title="3.10 接口默认的方法(Interface Default Methods)"></a>3.10 接口默认的方法(Interface Default Methods)</h3><p><code>Junit Jupiter</code> 允许  @Test, @TestFactory, @BeforeEach, 和 @AfterEach 成为接口默认的方法. 一个可能的使用场景就是 这样我们就可以为接口协议写测试方法了. 举个例子, 你可以为如何 实现Object.equals和Comparable.compareTo 制定标准,从而编写测试,具体如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Testable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">T <span class="title">createValue</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EqualsContract</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Testable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">T <span class="title">createNotEqualValue</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">valueEqualsItself</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        assertEquals(value, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">valueDoesNotEqualNull</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        assertFalse(value.equals(<span class="keyword">null</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">valueDoesNotEqualDifferentValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        T differentValue = createNotEqualValue();</span><br><span class="line">        assertNotEquals(value, differentValue);</span><br><span class="line">        assertNotEquals(differentValue, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ComparableContract</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">Comparable</span>&lt;<span class="title">T</span>&gt;&gt; <span class="keyword">extends</span> <span class="title">Testable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">T <span class="title">createSmallerValue</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">returnsZeroWhenComparedToItself</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        assertEquals(<span class="number">0</span>, value.compareTo(value));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">returnsPositiveNumberComparedToSmallerValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        T smallerValue = createSmallerValue();</span><br><span class="line">        assertTrue(value.compareTo(smallerValue) &gt; <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">returnsNegativeNumberComparedToSmallerValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T value = createValue();</span><br><span class="line">        T smallerValue = createSmallerValue();</span><br><span class="line">        assertTrue(smallerValue.compareTo(value) &lt; <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在你的测试类中, 你可以实现contract接口, 这样就相应的继承了相应的测试单元. 当然你必须实现这些抽象的方法.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StringTests</span> <span class="keyword">implements</span> <span class="title">ComparableContract</span>&lt;<span class="title">String</span>&gt;, <span class="title">EqualsContract</span>&lt;<span class="title">String</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"foo"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createSmallerValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"bar"</span>; <span class="comment">// 'b' &lt; 'f' in "foo"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createNotEqualValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"baz"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这些测试仅仅是样例,因此没有完全写完. </p>
+<h3 id="3-11-动态测试-Dynamic-Tests"><a href="#3-11-动态测试-Dynamic-Tests" class="headerlink" title="3.11 动态测试(Dynamic Tests)"></a>3.11 动态测试(Dynamic Tests)</h3><p>在<code>JUnit Jupiter</code>中标准的 <code>@Test</code> 注解和Junit 4中的 @Test注解非常的相似. 同样都是为了描述 这是测试单元的方法. 这些测试类在编译期间定义, 因此他们无法再运行期间改变. <em>Assumptions提供了一种动态行为的基本模式, 但是被限制与他们的表达形式</em> </p>
+<p>除了 一些测试程序中完全新的测试类型在 <code>JUnit Jupiter</code> 中被介绍. 还有一种新的动态测试方法被介绍, 可以通过 <code>@TestFactory</code> 注解的工厂方法在运行时产生. </p>
+<p>和 <code>@Test</code> 方法相反, 一个 <code>@TestFactory</code>方法 并不是测试本身, 而是一个测试单元的工厂. 这样, 一个动态的测试方法就是这个工厂的产品了. 技术上讲, <code>@TestFactry</code> 方法必须返回 <code>Stream</code>, <code>Collection</code>, <code>Iterable</code> 或者 <code>DynamicTest</code> 实例. 这些 动态测试实例将会被<br>懒加载, 确保动态和不确定的测试实例产生. </p>
+<p>相比于<code>@Test</code>方法, <code>@TestFactory</code> 方法不能使 <code>private</code> 或者 <code>static</code>. 并且可以选择性的通过 <code>ParameterResolvers</code> 来解析参数. </p>
+<p><code>DynamicTest</code> 是运行时生成的测试. 它由 <em>展示名称(display name)</em> 和 <code>Executable</code>组成. <code>Executable</code> 是一个 <code>@FunctionalInterface</code>的实现,这意味着 这些动态测试的实现可以通过  <em>lambda expressions</em> 或者 方法引用.</p>
+<blockquote>
+<p><em>动态测试的生命周期</em></p>
+</blockquote>
+<p><code>JUnit Jupiter</code> 5.0.0-M2版本, 动态测试一定需要通过工厂方法创造出来; 然而, 这可以通过在之后的版本中通过注册机制实现. </p>
+<h4 id="3-11-1-动态测试例子"><a href="#3-11-1-动态测试例子" class="headerlink" title="3.11.1. 动态测试例子"></a>3.11.1. 动态测试例子</h4><p>以下的 <code>DynamicTestsDemo</code> 的例子展示了测试工厂和动态测试的不同的几个例子. </p>
+<p>第一个方法返回了一个不合法的类型. 因为不合法的返回类型无法再编译器期间发现,在运行时就会抛出 <code>JUnitException</code> 异常. </p>
+<p>接下来的五个方法是非常简单的例子, 用来说明 产生 Collection, Iterable, Iterator, or Stream of DynamicTest 实例. 大多数的例子并没有 展示出动态的行为而仅仅是展示了支持的合法的返回类型. 然而, <code>dynamicTestsFromStream()</code> 和 <code>dynamicTestsFromIntStream()</code> 展示了对于给定的Strings 或者 输入的一定范围的数字,是非常容易生成测试的.</p>
+<p>最后一个方法是完全的动态生成. <code>generateRandomNumberOfTests()</code>方法实现了 生成随机数, 生成展示名称, 和 测试执行器 的接口, 并且将这三者都提供给了 <code>DynamicTest.stream()</code>方法.尽管<code>generateRandomNumberOfTests()</code>的行为是不明确的,要非常小心的使用并且在重复测试中会产生冲突, 但是它依然体现了 动态测试的强大功能. </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertEquals;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.Assertions.assertTrue;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.junit.jupiter.api.DynamicTest.dynamicTest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Collection;</span><br><span class="line"><span class="keyword">import</span> java.util.Iterator;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Consumer;</span><br><span class="line"><span class="keyword">import</span> java.util.function.Function;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.IntStream;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Stream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.DynamicTest;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Tag;</span><br><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.TestFactory;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DynamicTestsDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This will result in a JUnitException!</span></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">List&lt;String&gt; <span class="title">dynamicTestsWithInvalidReturnType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(<span class="string">"Hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Collection&lt;DynamicTest&gt; <span class="title">dynamicTestsFromCollection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            dynamicTest(<span class="string">"1st dynamic test"</span>, () -&gt; assertTrue(<span class="keyword">true</span>)),</span><br><span class="line">            dynamicTest(<span class="string">"2nd dynamic test"</span>, () -&gt; assertEquals(<span class="number">4</span>, <span class="number">2</span> * <span class="number">2</span>))</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Iterable&lt;DynamicTest&gt; <span class="title">dynamicTestsFromIterable</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            dynamicTest(<span class="string">"3rd dynamic test"</span>, () -&gt; assertTrue(<span class="keyword">true</span>)),</span><br><span class="line">            dynamicTest(<span class="string">"4th dynamic test"</span>, () -&gt; assertEquals(<span class="number">4</span>, <span class="number">2</span> * <span class="number">2</span>))</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Iterator&lt;DynamicTest&gt; <span class="title">dynamicTestsFromIterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Arrays.asList(</span><br><span class="line">            dynamicTest(<span class="string">"5th dynamic test"</span>, () -&gt; assertTrue(<span class="keyword">true</span>)),</span><br><span class="line">            dynamicTest(<span class="string">"6th dynamic test"</span>, () -&gt; assertEquals(<span class="number">4</span>, <span class="number">2</span> * <span class="number">2</span>))</span><br><span class="line">        ).iterator();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Stream&lt;DynamicTest&gt; <span class="title">dynamicTestsFromStream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Stream.of(<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>).map(</span><br><span class="line">            str -&gt; dynamicTest(<span class="string">"test"</span> + str, () -&gt; &#123; <span class="comment">/* ... */</span> &#125;));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Stream&lt;DynamicTest&gt; <span class="title">dynamicTestsFromIntStream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Generates tests for the first 10 even integers.</span></span><br><span class="line">        <span class="keyword">return</span> IntStream.iterate(<span class="number">0</span>, n -&gt; n + <span class="number">2</span>).limit(<span class="number">10</span>).mapToObj(</span><br><span class="line">            n -&gt; dynamicTest(<span class="string">"test"</span> + n, () -&gt; assertTrue(n % <span class="number">2</span> == <span class="number">0</span>)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@TestFactory</span></span><br><span class="line">    <span class="function">Stream&lt;DynamicTest&gt; <span class="title">generateRandomNumberOfTests</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generates random positive integers between 0 and 100 until</span></span><br><span class="line">        <span class="comment">// a number evenly divisible by 7 is encountered.</span></span><br><span class="line">        Iterator&lt;Integer&gt; inputGenerator = <span class="keyword">new</span> Iterator&lt;Integer&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            Random random = <span class="keyword">new</span> Random();</span><br><span class="line">            <span class="keyword">int</span> current;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                current = random.nextInt(<span class="number">100</span>);</span><br><span class="line">                <span class="keyword">return</span> current % <span class="number">7</span> != <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Integer <span class="title">next</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> current;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Generates display names like: input:5, input:37, input:85, etc.</span></span><br><span class="line">        Function&lt;Integer, String&gt; displayNameGenerator = (input) -&gt; <span class="string">"input:"</span> + input;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Executes tests based on the current input value.</span></span><br><span class="line">        Consumer&lt;Integer&gt; testExecutor = (input) -&gt; assertTrue(input % <span class="number">7</span> != <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Returns a stream of dynamic tests.</span></span><br><span class="line">        <span class="keyword">return</span> DynamicTest.stream(inputGenerator, displayNameGenerator, testExecutor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程-junit5/" rel="tag"># 编程, junit5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/09/why-multithread-is-a-bad-idea/" rel="next" title="为什么多线程是个坏主意（Why Threads Are A Bad Idea）">
+                <i class="fa fa-chevron-left"></i> 为什么多线程是个坏主意（Why Threads Are A Bad Idea）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/11/Vimium/" rel="prev" title="Chrome神器 - Vimium">
+                Chrome神器 - Vimium <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-概述"><span class="nav-number">1.</span> <span class="nav-text">1. 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-Junit5-有什么特点"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 Junit5 有什么特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Junit5-JUnit-Platform-JUnit-Jupiter-JUnit-Vintage"><span class="nav-number">1.2.</span> <span class="nav-text">Junit5 = JUnit Platform + JUnit Jupiter + JUnit Vintage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-支持的Java版本"><span class="nav-number">1.3.</span> <span class="nav-text">1.2 支持的Java版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装"><span class="nav-number">2.</span> <span class="nav-text">2 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-Dependency-Metadata"><span class="nav-number">2.1.</span> <span class="nav-text">2.1. Dependency Metadata</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-JUnit-Platform"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1. JUnit Platform</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-JUnit-Jupiter"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2. JUnit Jupiter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-JUnit-Vintage"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3. JUnit Vintage</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-JUnit-Jupiter-Sample-Projects"><span class="nav-number">2.2.</span> <span class="nav-text">2.2. JUnit Jupiter Sample Projects</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-编写测试用例"><span class="nav-number">3.</span> <span class="nav-text">3 编写测试用例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-注解"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 注解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-元注解-和-组合注解"><span class="nav-number">3.1.1.</span> <span class="nav-text">3.1.1 元注解 和 组合注解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-标准的测试类"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 标准的测试类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-展示名称-DisplayName"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 展示名称(DisplayName)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-断言-Assertions"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 断言(Assertions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-假定-Assumptions"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 假定(Assumptions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-6-禁用测试-Disabling-Tests"><span class="nav-number">3.6.</span> <span class="nav-text">3.6 禁用测试(Disabling Tests)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-7-标签和过滤-Tagging-and-Filtering"><span class="nav-number">3.7.</span> <span class="nav-text">3.7 标签和过滤(Tagging and Filtering)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-8-嵌套测试-Nested-Tests"><span class="nav-number">3.8.</span> <span class="nav-text">3.8 嵌套测试(Nested Tests)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-9-对于构造函数和方法的依赖注入"><span class="nav-number">3.9.</span> <span class="nav-text">3.9 对于构造函数和方法的依赖注入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-10-接口默认的方法-Interface-Default-Methods"><span class="nav-number">3.10.</span> <span class="nav-text">3.10 接口默认的方法(Interface Default Methods)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-11-动态测试-Dynamic-Tests"><span class="nav-number">3.11.</span> <span class="nav-text">3.11 动态测试(Dynamic Tests)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-11-1-动态测试例子"><span class="nav-number">3.11.1.</span> <span class="nav-text">3.11.1. 动态测试例子</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

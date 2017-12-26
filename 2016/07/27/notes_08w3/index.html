@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="编程, 效率," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Build Your Own Productlink: https://dev.to/sedaily/you-are-not-a-commodity?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=rss 文中相关的链接:  https://martinjeeblog.com/2012/11/20/what-is-pr">
+<meta name="keywords" content="编程, 效率">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本周杂记">
+<meta property="og:url" content="http://yoursite.com/2016/07/27/notes_08w3/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Build Your Own Productlink: https://dev.to/sedaily/you-are-not-a-commodity?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=rss 文中相关的链接:  https://martinjeeblog.com/2012/11/20/what-is-pr">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="本周杂记">
+<meta name="twitter:description" content="Build Your Own Productlink: https://dev.to/sedaily/you-are-not-a-commodity?utm_source=wanqu.co&amp;amp;utm_campaign=Wanqu+Daily&amp;amp;utm_medium=rss 文中相关的链接:  https://martinjeeblog.com/2012/11/20/what-is-pr">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/27/notes_08w3/"/>
+
+
+
+
+
+  <title>本周杂记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/27/notes_08w3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">本周杂记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-27T14:48:30+08:00">
+                2016-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Build-Your-Own-Product"><a href="#Build-Your-Own-Product" class="headerlink" title="Build Your Own Product"></a>Build Your Own Product</h2><p>link: <a href="https://dev.to/sedaily/you-are-not-a-commodity?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=rss" target="_blank" rel="noopener">https://dev.to/sedaily/you-are-not-a-commodity?utm_source=wanqu.co&amp;utm_campaign=Wanqu+Daily&amp;utm_medium=rss</a></p>
+<p><strong>文中相关的链接:</strong></p>
+<ol>
+<li><a href="https://martinjeeblog.com/2012/11/20/what-is-programmer-anarchy-and-does-it-have-a-future/" target="_blank" rel="noopener">https://martinjeeblog.com/2012/11/20/what-is-programmer-anarchy-and-does-it-have-a-future/</a></li>
+<li><a href="http://paulgraham.com/startupideas.html" target="_blank" rel="noopener">how to get startup ideas</a></li>
+<li><a href="http://paulgraham.com/good.html" target="_blank" rel="noopener">startup company</a></li>
+</ol>
+<p>1 The hardest battle to fight here is understanding that you should build something. Once you internalize that fact and acquire the necessary skills to prototype, the process of building is a fun exploration, even if you fail along the way.</p>
+<p><strong>The hardest battle to fight here is understanding that you should build something</strong> </p>
+<p><strong> 构建原型</strong> 的能力, 和快速实现原型的能力<br><strong>Most of the money goes to the people who created the assembly line, not the people who maintain it and build on top of it</strong>. Clearly, individuals who create an assembly line are rewarded more handsomely.</p>
+<p>大部分的钱都去了组装流水线的人的地方了, so sad. individuals who create an assembly line are rewarded more handsomely.</p>
+<p><strong>As an inexperienced employee, your work is likely to be centered around software maintenance.</strong> The company will pitch it to you as fresh and exciting because they see you as naive. But you won’t be building a new product where you have creative control and true responsibility.</p>
+<p><strong>I do not like to maintain software!</strong></p>
+<p>Building new software is the perfect activity for someone who likes art, science, business, or adrenaline.</p>
+<p>Other activities that provide a similar emotional high include drugs, video games, sex, gambling, browsing Facebook, writing music, painting a picture, international diplomacy, raising children, and skydiving.</p>
+<p>Build new software is the perfect activity for someone who like art, science, business, or adrenaline. </p>
+<hr>
+<p><strong>新的技术栈在这里显现</strong><br>React Native: 学习新的创业技能<br>Spring Boot: 快速启动和开发新的软件 </p>
+<hr>
+<ol>
+<li>The way to get startup ideas is not to try to think of startup ideas. It’s to look for problems, preferably problems you have yourself.</li>
+<li>Make something people want. We’ve learned a lot since then, but if I were choosing now that’s still the one I’d pick</li>
+</ol>
+<hr>
+<h3 id="facebook-高效工程师效果"><a href="#facebook-高效工程师效果" class="headerlink" title="facebook 高效工程师效果"></a>facebook 高效工程师效果</h3><ul>
+<li>防止干扰</li>
+</ul>
+<ol>
+<li><p>在无人和效率高的时候工作<br>我通常在早上 6 点到 9 点间能够干的事情比一天其他时间能干的都要多，长时间的不受打断至关重要</p>
+</li>
+<li><p>推迟干扰<br>当你在工作状态时遇到干扰最好的办法之一是推迟干扰。如果你在全神贯注的时候被干扰，那就告诉那个人你稍后会处理，速记一下此事，然后继续工作直到你到达合理的停止点。一旦到达停止点，马上处理完堆积的那些事情。</p>
+</li>
+</ol>
+<h3 id="写更小的diff"><a href="#写更小的diff" class="headerlink" title="写更小的diff"></a>写更小的diff</h3><ol>
+<li>每次提交的时候PR更小,采取更小的规模</li>
+</ol>
+<h3 id="层次和组织"><a href="#层次和组织" class="headerlink" title="层次和组织"></a>层次和组织</h3><ol>
+<li>制定自己的代办清单<br>同时要跟踪管理的来源还包括纸、任务、邮件、日程、清单、高级目标等。不过在确定接下来该干什么，在对任务、邮件的组织和分类方面，许多工程师都有一个 “层次化” 机制。</li>
+</ol>
+<h3 id="快速失败和迭代"><a href="#快速失败和迭代" class="headerlink" title="快速失败和迭代"></a>快速失败和迭代</h3><blockquote>
+<p>要养成在不知道结果会怎样的情况下马上写代码的习惯，这样我们就可以更快地迭代，更快看到结果。</p>
+</blockquote>
+<p>不要等着100%的方案出来的时候才写代码,要快速产出效果,快速实验</p>
+<h3 id="工作-生活-平衡"><a href="#工作-生活-平衡" class="headerlink" title="工作/生活 平衡"></a>工作/生活 平衡</h3><p>非线性工作, 非常猛的工作两周，然后 低强度 轻松两周</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/编程-效率/" rel="tag"># 编程, 效率</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/27/tst/" rel="next" title="关于恢复博客的想法">
+                <i class="fa fa-chevron-left"></i> 关于恢复博客的想法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/27/best-coder-book-note/" rel="prev" title="卓有成效的程序员_笔记">
+                卓有成效的程序员_笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-Your-Own-Product"><span class="nav-number">1.</span> <span class="nav-text">Build Your Own Product</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#facebook-高效工程师效果"><span class="nav-number">1.1.</span> <span class="nav-text">facebook 高效工程师效果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#写更小的diff"><span class="nav-number">1.2.</span> <span class="nav-text">写更小的diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#层次和组织"><span class="nav-number">1.3.</span> <span class="nav-text">层次和组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速失败和迭代"><span class="nav-number">1.4.</span> <span class="nav-text">快速失败和迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作-生活-平衡"><span class="nav-number">1.5.</span> <span class="nav-text">工作/生活 平衡</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

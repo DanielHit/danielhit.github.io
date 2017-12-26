@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="重新学习基础Linux的相关操作.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux-鸟哥私房菜学习note">
+<meta property="og:url" content="http://yoursite.com/2016/09/19/linux-bird-study-note-md/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="重新学习基础Linux的相关操作.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160823_3.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160823_5.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_9.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_9.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_14.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160826_1.png">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/a/a2/Ext2-inode.gif">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux-鸟哥私房菜学习note">
+<meta name="twitter:description" content="重新学习基础Linux的相关操作.">
+<meta name="twitter:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160823_3.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/19/linux-bird-study-note-md/"/>
+
+
+
+
+
+  <title>Linux-鸟哥私房菜学习note | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/09/19/linux-bird-study-note-md/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux-鸟哥私房菜学习note</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-19T19:48:17+08:00">
+                2016-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>重新学习基础Linux的相关操作.<br><a id="more"></a></p>
+<ol>
+<li>所谓的位指的是CPU一次数据读取的最大量. 64位, 代表CPU一次可以读取64bits这么多数据. </li>
+<li>所谓多核,就是一个实体CPU外壳中,含有两个以及以上的CPU单元, 多个计算核心</li>
+<li>CPU的几个不同点:<br> 1) CPU具有不同的指令集<br> 2) CPU的频率</li>
+<li><p>超线程(hyper-threading, HT)<br>1) 在每一个CPU内部, 将重要的寄存器分成两群, 而让程序分别使用这俩群寄存器. </p>
+</li>
+<li><p>个人电脑的内存主要元件为动态随机存取内存. </p>
+</li>
+<li>通常越大的内存代表越快速的系统,这是因为系统不用常常释放一些内存内部数据. </li>
+<li>第二层高速缓存, 整合到了CPU内部, 无需总是再进行内存数据读取的功能. </li>
+<li>BIOS(basic input output system)写死到主板上面的一个内存芯片之中, 没电的时候可以保存数据, 只读存储器, ROM.<br>9 硬件的接口传输协议<br>1）SATA接口<br>2) SAS接口<br>3) USB接口</li>
+</ol>
+<p>10 固态硬盘(SSD) solid state disk<br>没有磁盘了,不需要马达转动, 通过内存直接读取, 没有数据延迟,而且 还很省电.<br>1) hdd 和 ssd 搭配使用, ssd作为系统盘, 数据存储在 hdd上面. </p>
+<p>11 文字编码系统<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160823_3.png" alt="文字编码系统"><br>常用的英文编码表为 ASCII系统, 每个符号占用1Bytes, 8位,所以有256个不同变化.<br>中文采用big5. 目前国际上统一采用标准字符集, utf8</p>
+<ol>
+<li>操作系统<br>操作系统也是一组程序, 程序的重点在于管理电脑所有的活动, 以及驱动系统中的硬件.<br>操作系统会提供一整组的开发接口给工程师来开发软件! 工程师只要遵守改开发接口就很容易进行开发了.<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160823_5.png" alt="操作系统的结构"></li>
+</ol>
+<ul>
+<li>核心, 提供了对于硬件的管理</li>
+<li>系统调用层: 提供了管理核心的开发接口<br>操作系统其实就是 核心 与其 提供的 接口工具.<br>核心需要提供的功能:</li>
+<li>系统调用接口</li>
+<li>程序管理(Process Control): 多CPU的任务分配</li>
+<li>内存管理</li>
+<li>文件系统管理</li>
+<li>设备驱动</li>
+</ul>
+<ol>
+<li><p>Thompson的文件系统的特点:<br>1) 所谓程序和系统都是文件属性<br>2）所有程序的目的都是为了实现 高效率实现最终目标</p>
+</li>
+<li><p>GNU发展中非常重要的几个软件:<br>1）Emacs<br>2) GNU C<br>3) GNU C Library<br>4) Bash Shell</p>
+</li>
+<li><p>distribution = “Kernel + Softwares + Tools + 可安装程序”</p>
+</li>
+</ol>
+<p>distributions主要分为两大系统,一种是使用RPM方式安装软件的系统,包括 Red Hat, Fedora, SuSE等都是这类; 一种则是使用Debian的dpkg方式安装软件的系统,包 括Debian, Ubuntu, B2D等等</p>
+<ol>
+<li>Linux 的文件权限与目录配置<br>1）文件身份: owner/group/others<br>2) 权限: read/write/execute<br>3) root的相关信息在 /etc/passwd. 个人密码 /etc/shadow. 团体的信息在 /etc/group下面</li>
+</ol>
+<p>17 权限解读<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drwxrwxr-x 2 huleihit huleihit 4096 Aug 23 11:06 .pip/</span><br></pre></td></tr></table></figure></p>
+<p>第一栏:<code>drwxrwxr-x</code> [d] 代表这是一个文件夹 9个字符,分别代表 文件拥有者的权限, 文件所属群组的权限, others权限<br>第二栏: <code>2</code> 代表有多少文件链接到 此节点之中<br>第三栏: <code>huleihit</code> 代表这个文件的拥有者账号<br>第四栏: <code>huleihit</code> 代表这个文件的所属群组<br>第五栏:<code>4096</code> 代表 文件的大小为 4096bytes, 4k大小<br>第六栏: <code>Aug 23 11:06</code> 代表 文件最近修改的时间<br>第七栏： <code>.pip/</code> 代表文件名称</p>
+<p>注意: 如果对于文件夹没有执行<code>x</code>权限，则不可以进入该文件夹，即使有<code>r</code>权限,也不行</p>
+<p>18 修改文件属性的命令:<br><code>chgrp</code> 修改文件所属群组<br><code>chown</code> 改变文件所有者<br><code>chmod</code> 改变文件的权限</p>
+<p>重点在于<code>chmod</code>的使用, 文件各权限的分数对照表如下:<br><code>r</code> 4分， <code>w</code> 2分, <code>x</code> 1分, 然后使用分数进行修改 , 奇葩的linux权限设计, fuck</p>
+<ol>
+<li>文件与文件夹的权限 </li>
+</ol>
+<p>1) 权限对于文件的意义<br>r (read):可读取此一文件的实际内容,如读取文本文件的文字内容等;<br>w (write):可以编辑、新增或者是修改该文件的内容(<strong>但不含删除该文件</strong>);<br>x (eXecute):该文件具有可以被系统执行的权限。</p>
+<p>2) 权限对于目录的重要性<br><code>r</code> (read contents in directory):<br>表示具有读取目录结构清单的权限,所以当你具有读取(<code>r</code>)一个目录的权限时,表示你 可以查询该目录下的文件名数据。 所以你就可以利用 ls 这个指令将该目录的内容列表显 示出来!<br><code>w</code> (modify contents of directory):<br>这个可写入的权限对目录来说,是很了不起的! 因为他表示你具有异动该目录结构清单 的权限,也就是下面这些权限:<br>创建新的文件与目录;<br>删除已经存在的文件与目录(不论该文件的权限为何!) 将已存在的文件或目录进行更名;<br><code>x</code> 仅仅是可以 确定使用者能否进入这个目录</p>
+<p>对一般文件来说,rwx 主要是针对“文件的内容”来设计权限, 对目录来说,rwx则是针对“目录内的文件名列表”来设计权限。</p>
+<ol>
+<li>文件种类与扩展名的作用</li>
+</ol>
+<ul>
+<li>文件<ul>
+<li>纯文本文件(ASCII)</li>
+<li>二进制文档</li>
+<li>数据格式文件</li>
+</ul>
+</li>
+<li>目录</li>
+<li>链接文件</li>
+<li>设备与设备文件（与系统周边与存储等相关的一些文件), 通常都集中在 /dev文件下面<ul>
+<li>区块文件(主要就是一些存储数据)提供系统随机存取的周边设备</li>
+<li>字符设备文件</li>
+</ul>
+</li>
+<li>数据接口文件(sockets): 主要用于网络上的数据承载功能</li>
+<li>数据输送档(FIFO)：FIFO是一种特殊的文件类型</li>
+</ul>
+<ol>
+<li>通常常用的linux扩展名</li>
+</ol>
+<ul>
+<li>.sh : 脚本或批处理文件 (scripts),因为批处理文件为使用shell写成的,所以扩展名 就编成 .sh  ;</li>
+<li>Z, .tar, .tar.gz, .zip, *.tgz: 经过打包的压缩文件。这是因为压缩软件分别为 gunzip, tar 等等的,由于不同的压缩软件,而取其相关的扩展名 !</li>
+<li>.html, .php:网页相关文件,分别代表 HTML 语法与 PHP 语法的网页文件 ! .html 的 文件可使用网页浏览器来直接打开,至于 .php 的文件, 则可以通过 client 端的浏览器来 server 端浏览,以得到运算后的网页结果呢!</li>
+</ul>
+<h2 id="Linux的文件配置依据-FHS-File-Hierachy-Standard-标准出炉了"><a href="#Linux的文件配置依据-FHS-File-Hierachy-Standard-标准出炉了" class="headerlink" title="Linux的文件配置依据: FHS(File Hierachy Standard) 标准出炉了"></a>Linux的文件配置依据: FHS(File Hierachy Standard) 标准出炉了</h2><blockquote>
+<p>FHS的重点在于规范每个特定的目录下应该要 放置什么样子的数据而已。 这样做好处非常多,因为Linux操作系统就能够在既有的面貌下 (目录架构不变)发展出开发者想要的独特风格</p>
+</blockquote>
+<p>一般的规范如下:<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_9.png" alt="文件规范"></p>
+<p>事实上,FHS针对目录树架构仅定义出三层目录下面应该放置什么数据而已,分别是下面这 三个目录的定义:</p>
+<ul>
+<li>/ (root, 根目录):与开机系统有关;</li>
+<li>/usr (unix software resource):与软件安装/执行有关; </li>
+<li>/var (variable):与系统运行过程有关。</li>
+</ul>
+<p>关于具体的FHS可以参考维基百科的部分内容: <a href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard</a></p>
+<ul>
+<li><p>/usr(unix software resouce)目录的意义<br>/usr里面放置的数据属于可分享的与不可变动的(shareable, static), 如果你知道如何通过网络进行分区的挂载(例如在服务器篇会谈到的NFS服务 器),那么/usr确实可以分享给区域网络内的其他主机来使用喔!</p>
+</li>
+<li><p>/var 的意义<br>如果/usr是安装时会占用较大硬盘容量的目录,那么/var就是在系统运行后才会渐渐占用硬盘 容量的目录。 因为/var目录主要针对常态性变动的文件,包括高速缓存(cache)、登录文件 (log file)以及某些软件运行所产生的文件, 包括程序文件(lock file, run file),或者例如 MySQL数据库的文件等等。</p>
+</li>
+<li><p>linux目录树<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_9.png" alt="目录树"></p>
+</li>
+</ul>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><p> 绝对路径与相对路径</p>
+<ul>
+<li>绝对路径:由根目录(/)开始写起的文件名或目录名称, 例如 /home/dmtsai/.bashrc; </li>
+<li>相对路径:相对于目前路径的文件名写法。 例如 ./home/dmtsai 或 ../../home/dmtsai/ 等 等。反正开头不是 / 就属于相对路径的写法</li>
+</ul>
+<p>PS, 可以使用 <code>uname -a</code> 查看相应linux的版本, 具体的信息可以通过<code>man uname</code> 查看</p>
+<ol>
+<li>工作目录的概念</li>
+</ol>
+<p>常用的目录文件表示:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.. 代表上一层目录</span><br><span class="line">- 代表**前一个工作目录**</span><br><span class="line">~ 代表“目前使用者所在的主目录</span><br></pre></td></tr></table></figure></p>
+<p>关于可执行文件的变量: $PATH</p>
+<p><code>cp</code> 执行相应的链接请求<br>不同点: cp -l 和 cp -s的区别:<br>使用 -l 及 -s 都会创建所谓的链接文件(link file),但是这两种链接文件却 有不一样的情况。这是怎么一回事啊? 那个 -l 就是所谓的实体链接(hard link),至于 -s 则 是符号链接(symbolic link), 简单来说,bashrc_slink 是一个“捷径”,这个捷径会链接到 bashrc去!所以你会看到文件名右侧会有个指向(-&gt;)的符号!</p>
+<p>其他一些常用的命令:<br>1) <code>basename</code>: 获取最后的文件名<br>2) <code>dirname</code>  获取路径的文件夹名</p>
+<p>21 查看文件内容的主要命令<br>1） <code>cat</code> 进行全文<br>2) <code>nl</code> 显示行号进行输出<br>3) <code>tac</code> 从最后一行开始显示<br>4) <code>tail</code> 从尾部开始进行显示<br>5) <code>less</code>  更加强大的查询功能，基本提供了less之后,就不需要其他的一些功能了<br>6) <code>head</code> 和 <code>tail</code> 相对应，从头开始查阅文件内容<br>7) <code>umask</code> 就是构建默认的文件的权限<br>8) <code>lsattr</code> 隐藏文件的功能,具体使用 man 进行查询,有这个记忆就可以了<br>9) <code>file</code> 查看文件类型</p>
+<p>22 Linux下的三个主要时间<br><strong>modification time</strong> (mtime): 当该文件的“内容数据”变更时,就会更新这个时间!内 容数据指的是文件的内容,而不是文件的属性或权限喔!<br><strong>status time</strong> (ctime): 当该文件的“状态 (status)”改变时,就会更新这个时间,举 例来说,像是权限与属性被更改了,都会更新这个时间啊。<br><strong>access time</strong> (atime): 当“该文件的内容被取用”时,就会更新这个读取时间 (access)。举例来说,我们使用 cat 去读取 /etc/man_db.conf , 就会更新该文件的 atime 了。  </p>
+<p>23 SUID 的概念<br>1) Unix系统如何确定一个进程对于资源的访问权限?<br>UNIX的内核是根据什么来确定一个进程对资源的访问权限的呢？是这个进程的运行用户的（有效）ID，包括user id和group id。用户可以用id命令来查到自己的或其他用户的user id和group id。</p>
+<p>如何理解 suid 和 sgid? 因为 Unix系统如何决定对于进程的访问处理关系?<br>通常是根据 进程的有效用户ID, suid可以让执行该资源的时候,将实际有效用户ID使用该文件的所有者，而不是 实际进程的用户ID</p>
+<ol>
+<li>文件搜索如何处理?</li>
+</ol>
+<ul>
+<li><code>which</code> 来搜索可执行文件的地址, <code>which</code> 命令查找 <code>path</code> 下面所有的命令的</li>
+<li><code>locate</code> 来进行文件的位置定位，效率比<code>find</code> 效率更高(The locate program searches a database for all pathnames which match the specified pattern.)</li>
+</ul>
+<h2 id="Linux磁盘管理"><a href="#Linux磁盘管理" class="headerlink" title="Linux磁盘管理"></a>Linux磁盘管理</h2><ol>
+<li>Linux磁盘与文件系统管理<br>1) Linux的主要的实体磁盘和虚拟磁盘</li>
+</ol>
+<ul>
+<li>/dev/sd[a-p][1-128]:为实体磁盘的磁盘文件名</li>
+<li>/dev/vd[a-d][1-128]:为虚拟磁盘的磁盘文件名</li>
+</ul>
+<p>数据存取方式有两种方式:</p>
+<ul>
+<li>索引式文件系统(indexed allocation): 通过inode 和 block两个模块进行索引和管理block数据<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160824_14.png" alt="索引文件的组织方式"></li>
+<li>FAT 格式(U盘的文件组织方式): </li>
+<li>inode常用来存储文件的相关属性, block 用来存储文件相关的内容, 数据内容</li>
+</ul>
+<ol>
+<li>文件系统EXT2 与 FileSystem不同的文件系统组成<br>EXT2的整体文件系统架构图:<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160826_1.png" alt="文件系统架构图"></li>
+</ol>
+<p>1) inode 用来记录文件的属性, 以及文件实际放在那里, 就是实际指向的block的地方<br>inode的文件结构的说明: <a href="https://en.wikipedia.org/wiki/Inode_pointer_structure" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Inode_pointer_structure</a><br><img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Ext2-inode.gif" alt="inode结构"></p>
+<p>2)superblock(超级区块)<br>主要记录fileSystem相关的整体信息:</p>
+<ul>
+<li>block与inode总量</li>
+<li>未使用与已使用的inode/block的数量</li>
+<li>filesystem的挂载时间,</li>
+</ul>
+<p><code>dumpe2fs</code> 查询 Ext家族 superblock信息指令</p>
+<blockquote>
+<p>dumpe2fs - dump ext2/ext3/ext4 filesystem information</p>
+</blockquote>
+<p><code>blkid</code> 通过这个指令调出目前 所有被格式化的设备，展现出来, 开始显现</p>
+<ol>
+<li>挂载的意义<br><code>挂载</code> : 将文件系统与目录树结合的动作我们称为“挂载”。 挂载点一定是目录,该目录为进入该文件系统的入口。  </li>
+</ol>
+<p>24 查看磁盘空间的命令</p>
+<ul>
+<li><code>df</code> 查看各个磁盘的空间, <code>df -h</code> 以一种显性的方式查看相应的磁盘空间情况</li>
+<li><code>du</code> 估计与查看各个文件的大小</li>
+</ul>
+<p>25 hard link 与 symbolic link<br>1) hard link 通过 创建一个新的文件名, 指向同一个inode<br>2) symbolic link 通过 指向另个一文件名, 而不是 inode.</p>
+<ol>
+<li>swap(内存交换空)<br>swap使用到的时候,其实就是 实体内存不足的情况下发生了. </li>
+</ol>
+<p>27 <code>tar</code> linux下面的打包 命令</p>
+<ul>
+<li><code>tar -cf</code> 创建一个压缩文件名称 </li>
+<li><code>tar -xf</code> 解压缩一个文件, 基本命令够用就可以了</li>
+</ul>
+<p>28 bash的几个优点如下:</p>
+<ul>
+<li>命令编修能力 (history)</li>
+<li>命令与文件补全功能</li>
+<li>命令别名设置功能</li>
+<li>工作控制、前景背景控制 (其实,也是后台执行的功能提供)</li>
+<li>程序化脚本</li>
+</ul>
+<p>29.shell指令太长,就是用 <code>\</code> 命令进行跳脱, 进行新的一栏的开发</p>
+<ol>
+<li>linux变量的获取 <code>echo ${变量名}</code><br>1) echo ${变量名} 就可以获取相应的变量的信息<br>2) 等号两边不能直接接空白字符,如下所示为错误: “myname = VBird”或“myname=VBird Tsai”<br>3) 该变量为扩增变量内容时,则可用 “$变量名称” 或 ${变量} 累加内容,<br>4）若该变量需要在其他子程序执行,则需要以 export 来使变量变成环境变量: “export PATH’</li>
+</ol>
+<p>关于<code>export</code>的变量的使用<br>什么是“子程序”呢?就是说,在我目前这个 shell 的情况下,去启用另一个新的 shell ,新的那 个 shell 就是子程序啦. 通过 <code>export</code> 操作就可以 继承之前的 相应环境下的变量了.</p>
+<ol>
+<li><code>read</code> 可以用来读取 输入的环境变量 <blockquote>
+<p>read [-pt] variable </p>
+</blockquote>
+</li>
+</ol>
+<p>32 别名设置工具 <code>alias</code> 与 <code>unalias</code><br>使用的方法:</p>
+<pre><code>alias ll=&apos;ls -l&apos;        # 赋予相应的快捷支付方式名称
+unlias ll               #  移除相应的快捷方式
+</code></pre><p>33 <code>history</code> 调用出历史使用命令 </p>
+<ul>
+<li><code>hisotry n</code>  调用出相应的历史命令 (n行以内的历史命令)</li>
+<li><code>!n</code> 代表执行第 number 行的命令</li>
+</ul>
+<p>34 指令执行的顺序</p>
+<ul>
+<li>以相对/绝对路径执行指令,例如“/bin/ls”或“./ls”;</li>
+<li>由alias找到该指令来执行;</li>
+<li>由bash内置的(builtin)指令来执行;</li>
+<li>通过$PATH这个变量的顺序搜寻到的第一个指令来执行。</li>
+</ul>
+<p>35 默认配置<br>1) login shell 其实只会读取这两个配置文件:</p>
+<ol>
+<li>/etc/profile:这是系统整体的设置,你最好不要修改这个文件;</li>
+<li>~/.bash_profile或~/.bash_login或~/.profile:属于使用者个人设置,你要改自己的数</li>
+</ol>
+<p>36 重定向 与 垃圾黑洞<br>1）<strong>/dev/null 垃圾桶黑洞设备与特殊写法</strong><br>2) 相应命令行的管道处理<br>关于管道的 2&gt;$1<br><a href="http://blog.sina.com.cn/s/blog_5842daa30101enz5.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_5842daa30101enz5.html</a></p>
+<ol>
+<li>字符匹配处理工具</li>
+</ol>
+<ul>
+<li>grep的使用</li>
+<li>[] 来选择 集合字符的问题</li>
+</ul>
+<p>对于一些不重要的章节, 快速突破学习, 换别的方面进行学习</p>
+<ol>
+<li>shell scripts脚本的功能<br>1) 必须具备r 和 x的功能才能执行<br>2) 可以通过 绝对路径 / 相对路径 / 变量PATH 三种路径的方法来学习<br>3) <code>$</code> 代表的是小指令 的东西</li>
+</ol>
+<p>类似于shell的编程 和 命令, 当需要用的时候,再去查找, 应该更快一些</p>
+<ol>
+<li>用户权限管理<br>1) 用户识别码 UID 与 GID的不同<br>每个文件都有两个ID</li>
+</ol>
+<ul>
+<li>用户 ID</li>
+<li>群组 ID</li>
+</ul>
+<p><code>what a fuck! no talking! no saying</code></p>
+<p>2) <code>/etc/passwd</code> 下面的具体的用户权限的形式如下:</p>
+<blockquote>
+<p>huleihit:x:1000:1000:Ubuntu:/home/huleihit:/bin/bash</p>
+</blockquote>
+<p>huleihit 代表相应的群组<br>x 是密码<br>1000 是 UID 用户id<br>1000 是 GID 群组 id</p>
+<p>关于shell的类型说明与介绍:<br><a href="http://blog.shengbin.me/posts/shell-types" target="_blank" rel="noopener">http://blog.shengbin.me/posts/shell-types</a></p>
+<p>关于登录时候,自动选择shell的类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># if running bash</span><br><span class="line">if [ -n &quot;$BASH_VERSION&quot; ]; then</span><br><span class="line">    # include .bashrc if it exists</span><br><span class="line">    if [ -f &quot;$HOME/.bashrc&quot; ]; then</span><br><span class="line">        . &quot;$HOME/.bashrc&quot;</span><br><span class="line">    fi</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># set PATH so it includes user&apos;s private bin if it exists</span><br><span class="line">if [ -d &quot;$HOME/bin&quot; ] ; then</span><br><span class="line">    PATH=&quot;$HOME/bin:$PATH&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>如果存在bash-version，则启动.bashrc的bash相关配置. 同时可以将被动bin加入了path之中. 可以直接使用命令进行操作</p>
+<ol>
+<li>关于创建新的用户 <code>useradd</code><br>几个重要的文件夹:<br><code>/etc/passwd</code> 所有用户的信息<br><code>/etc/shadow</code> 相关用户的密码<br><code>/etc/group</code> 相关群组的信息 </li>
+</ol>
+<p>如何在 ubuntu上创建 和 删除新的用户</p>
+<ul>
+<li><p>创建用户<br>1) 使用sudo 用户登录<br>2) 然后输入命令: <code>sudo useradd daniel</code><br>3) 然后根据linux输出的信息依次填入 用户密码, 重复确认<br>就可以了</p>
+</li>
+<li><p>给创建的用户添加root权限<br>通过<code>usermod -aG sudo daniel</code></p>
+</li>
+<li><p>删除用户<br>如果删除用户, 可以使用  <code>sudo userdel -f daniel</code>, 其中 <code>-f</code> 的命令是 force 强制</p>
+</li>
+</ul>
+<p>相关的链接: <a href="https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart" target="_blank" rel="noopener">https://www.digitalocean.com/community/tutorials/how-to-create-a-sudo-user-on-ubuntu-quickstart</a></p>
+<ol>
+<li>ACL(access control list)<br>1) 访问控制权限 - linux系统的访问控制权限<br>2) 访问权限控制 - </li>
+</ol>
+<hr>
+<p>相关重要的网址链接:</p>
+<ul>
+<li><a href="http://www.tldp.org/" target="_blank" rel="noopener">http://www.tldp.org/</a></li>
+<li>鸟哥推荐的技术书籍: <a href="http://linux.vbird.org/linux_basic/0120howtolinux/" target="_blank" rel="noopener">http://linux.vbird.org/linux_basic/0120howtolinux/</a></li>
+<li>0120howtolinux_1.php</li>
+<li>电脑基础知识 <a href="http://www.study-area.org/compu/compu.htm" target="_blank" rel="noopener">http://www.study-area.org/compu/compu.htm</a></li>
+<li>网络基础知识: <a href="http://www.study-area.org/network/network.htm" target="_blank" rel="noopener">http://www.study-area.org/network/network.htm</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/19/TICK-tech-stack-md/" rel="next" title="influxData技术栈学习">
+                <i class="fa fa-chevron-left"></i> influxData技术栈学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/21/github-star/" rel="prev" title="Github-2016年开源项目">
+                Github-2016年开源项目 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux的文件配置依据-FHS-File-Hierachy-Standard-标准出炉了"><span class="nav-number">1.</span> <span class="nav-text">Linux的文件配置依据: FHS(File Hierachy Standard) 标准出炉了</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件管理"><span class="nav-number">2.</span> <span class="nav-text">文件管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux磁盘管理"><span class="nav-number">3.</span> <span class="nav-text">Linux磁盘管理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

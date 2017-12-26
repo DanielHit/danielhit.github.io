@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
+<meta name="keywords" content="软件,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重构-笔记">
+<meta property="og:url" content="http://yoursite.com/2017/07/19/refactor-read/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="重构-笔记">
+<meta name="twitter:description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/19/refactor-read/"/>
+
+
+
+
+
+  <title>重构-笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/19/refactor-read/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">重构-笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:34:43+08:00">
+                2017-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>利用这段开发时间的空余, 又将 <strong>重构</strong>  这本书学习一遍, 以下是相应的学习笔记摘要. </p>
+<a id="more"></a>
+<h2 id="重构概念"><a href="#重构概念" class="headerlink" title="重构概念"></a>重构概念</h2><h4 id="重构定义"><a href="#重构定义" class="headerlink" title="重构定义"></a>重构定义</h4><p>对软件内部结构的一种调整, 目的是<em>在不改变软件可观察行为的前提下</em>, 提高其可理解性, 降低其修改成本. </p>
+<ul>
+<li>不仅仅是修改代码, 更是一种高效并且受控的代码整理技术.</li>
+</ul>
+<h4 id="重构的目的"><a href="#重构的目的" class="headerlink" title="重构的目的"></a>重构的目的</h4><ul>
+<li>改进软件设计. 防止代码逐渐<strong>腐烂</strong>. 如果不一直维护, 代码将会逐渐加熵, 越来越复杂, 直到最终代码腐烂掉.</li>
+<li>是代码更加容易理解. 写代码的时间, 远远低于代码维护的时间.  </li>
+<li>重构可以加快开发速度, 快速开发速度. -&gt; 加快开发速度.</li>
+<li>随时重构 -&gt; 持续不断的进行重构. <strong>事不过三, 三则重构</strong></li>
+<li><em>如果我纯粹是为了今天工作, 明天我将完全无法工作</em>. 需要一个更加广阔的视角看待现在的编程工作.</li>
+</ul>
+<h4 id="本质"><a href="#本质" class="headerlink" title="本质:"></a>本质:</h4><pre><code>计算机科学是这样一门科学: 它相信所有问题都可以通过增加一个间接层来解决.
+</code></pre><p>重构的本质是通过在不改变功能的情况下, 增加更多的逻辑分层, 达到简化.抽象 和 共用.</p>
+<h4 id="重构与性能"><a href="#重构与性能" class="headerlink" title="重构与性能"></a>重构与性能</h4><p>原则: 先写出可以运行的软件, 然后再调整程序来获得足够的性能.</p>
+<h2 id="何时进行重构"><a href="#何时进行重构" class="headerlink" title="何时进行重构"></a>何时进行重构</h2><h4 id="重复代码-Duplicate-code"><a href="#重复代码-Duplicate-code" class="headerlink" title="重复代码(Duplicate code)"></a>重复代码(Duplicate code)</h4><p>当idea提示, 有很多相同代码段的时候, 就需要认真考虑了.</p>
+<h4 id="过长函数-Long-method-gt-使用-extract-method"><a href="#过长函数-Long-method-gt-使用-extract-method" class="headerlink" title="过长函数(Long method) -&gt; 使用 extract method."></a>过长函数(Long method) -&gt; 使用 extract method.</h4><p>短函数比长函数好. 程序越长越难以理解. 子程序需要额外的开销.<br>最好不要让函数超过 50 行. 积极的分解函数.<br>原则: <strong>每当感觉需要注释来说明的时候, 我们就需要把说明的东西写入一个独立的函数</strong></p>
+<ul>
+<li>通过replace temp with query. 来消灭临时变量. 过多的临时变量, 将导致函数非常难以阅读.</li>
+<li>逻辑表达式可以提炼成一个单独的函数.</li>
+<li>循环语句可以提炼单独的一个函数.</li>
+</ul>
+<h4 id="过大的类"><a href="#过大的类" class="headerlink" title="过大的类"></a>过大的类</h4><ul>
+<li>使用Extract Class 和 Extract SubClass 将多长类抽取出来. </li>
+</ul>
+<h4 id="过长的参数-Long-Parameter-List"><a href="#过长的参数-Long-Parameter-List" class="headerlink" title="过长的参数(Long Parameter List)"></a>过长的参数(Long Parameter List)</h4><ul>
+<li>过多的变量抽取出总结成一个Class</li>
+</ul>
+<h2 id="测试-重构的基础"><a href="#测试-重构的基础" class="headerlink" title="测试-重构的基础"></a>测试-重构的基础</h2><ul>
+<li><p>确保所有测试都能够完全自动化. 让他们检查自己的测试结果</p>
+<ul>
+<li>不要再写print out 肉眼查看的 unit test了</li>
+<li>写好一点功能之后, 就立即测试, 构筑全面的测试体系</li>
+</ul>
+</li>
+<li><p>测试你担心出错的部分,投入与产出比最大化.</p>
+</li>
+</ul>
+<h2 id="主要的重构方法"><a href="#主要的重构方法" class="headerlink" title="主要的重构方法"></a>主要的重构方法</h2><ul>
+<li><p>Extract Method(抽取函数)</p>
+</li>
+<li><p>Replace Temp with Query(以查询取代临时变量)</p>
+<ul>
+<li>局部变量会使代码难以提炼</li>
+<li>十有八九根本不会造成影响到任何性能问题</li>
+</ul>
+</li>
+<li>Inline Method(内联函数)</li>
+<li>Inline Temp(内联临时变量)</li>
+<li>Introce Explaining Variable(引入解释性变量)<ul>
+<li>表达式复杂而且难以阅读的时候使用</li>
+</ul>
+</li>
+<li><p>Split Temp Variable(分解临时变量)</p>
+<ul>
+<li>每个临时变量应该只用来承担一个责任.</li>
+<li>如果一个变量承担了多个责任, 应该申请多个临时变量 </li>
+</ul>
+</li>
+<li><p>在对象之间进行搬迁(move field &amp; move method)</p>
+<ul>
+<li>迁移函数(一个类有太多的函数 或者 代码太长), 可以再抽离一个类出来. </li>
+<li>迁移变量</li>
+</ul>
+</li>
+<li><p>Extract Class(提炼类)</p>
+</li>
+<li><p>Inline Class(将类内联化)</p>
+</li>
+<li><p>Replace Magic Number with Symbolic Constant(通过字面常量取代法数) </p>
+</li>
+<li><p>取代类型码的各种重构方法</p>
+<ul>
+<li>Replace Type code with Class(通过类的继承关系, 将类型码换掉)</li>
+<li>Replace Type code with Subclass(以子类取代类型码)<ul>
+<li>工厂方法创建子类</li>
+<li>将不同type, 创建不同的子类. </li>
+</ul>
+</li>
+<li>Replace Type code with State/Strategy</li>
+</ul>
+</li>
+<li><p>简化条件表达式</p>
+<ul>
+<li>Decompose Conditional(分解条件表达式) -&gt; 抽取出单独一个方法进行封装</li>
+<li>合并条件表达式(Consolidate Conditional Expression)</li>
+</ul>
+</li>
+<li><p>使用卫语句取代嵌套条件表达式(如果条件及其罕见,单独检查该条件)</p>
+</li>
+<li><p>Introduce Null Object(引入Null 对象),备注: 可以用Guava的 Optional类来代替</p>
+</li>
+<li><p>简化函数调用</p>
+<ul>
+<li>将修改函数 和 查询函数进行分离</li>
+<li>将多个参数调用简化为一个对象调用(比如多个值传递,多个属性为同一个对象, 直接将对象作为参数传递即可)</li>
+<li>使用工厂方法取代构造函数(Replace Constructor with Factory Method)<ul>
+<li>根据参数的个数和类型 -&gt; 选择不同的创建类型</li>
+</ul>
+</li>
+<li>将向下转型的工作封装在函数里面, 不需要将向上转型的任务交给客户端</li>
+<li>使用异常取代错误码</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件/" rel="tag"># 软件</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/01/game/" rel="next" title="政治是达成目标的手段">
+                <i class="fa fa-chevron-left"></i> 政治是达成目标的手段
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/24/wireshark-study-note/" rel="prev" title="Wireshark学习笔记">
+                Wireshark学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#重构概念"><span class="nav-number">1.</span> <span class="nav-text">重构概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重构定义"><span class="nav-number">1.0.1.</span> <span class="nav-text">重构定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构的目的"><span class="nav-number">1.0.2.</span> <span class="nav-text">重构的目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本质"><span class="nav-number">1.0.3.</span> <span class="nav-text">本质:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构与性能"><span class="nav-number">1.0.4.</span> <span class="nav-text">重构与性能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时进行重构"><span class="nav-number">2.</span> <span class="nav-text">何时进行重构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重复代码-Duplicate-code"><span class="nav-number">2.0.1.</span> <span class="nav-text">重复代码(Duplicate code)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长函数-Long-method-gt-使用-extract-method"><span class="nav-number">2.0.2.</span> <span class="nav-text">过长函数(Long method) -&gt; 使用 extract method.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过大的类"><span class="nav-number">2.0.3.</span> <span class="nav-text">过大的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长的参数-Long-Parameter-List"><span class="nav-number">2.0.4.</span> <span class="nav-text">过长的参数(Long Parameter List)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-重构的基础"><span class="nav-number">3.</span> <span class="nav-text">测试-重构的基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的重构方法"><span class="nav-number">4.</span> <span class="nav-text">主要的重构方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="工具,网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="上周集中花时间学习了解了一下网络抓包工具 Wireshark, 一个非常强大的网络抓包工具, 而且是开源免费的. 通过wireshark工具对于之前学习了解到的计算机网络知识重新复习了一遍, 将之前书上的理论知识真正通过能够通过工具可视化落地理解, 并进而真正解决很多实际的网络问题. 建议大学的计算机课程, 应该在教授计算机网络这门课程的时候, 可以将这个工具作为实验传递给学生.">
+<meta name="keywords" content="工具,网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wireshark学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/07/24/wireshark-study-note/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="上周集中花时间学习了解了一下网络抓包工具 Wireshark, 一个非常强大的网络抓包工具, 而且是开源免费的. 通过wireshark工具对于之前学习了解到的计算机网络知识重新复习了一遍, 将之前书上的理论知识真正通过能够通过工具可视化落地理解, 并进而真正解决很多实际的网络问题. 建议大学的计算机课程, 应该在教授计算机网络这门课程的时候, 可以将这个工具作为实验传递给学生.">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_2.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_5.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_9.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_4.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_15.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_16.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_19.png">
+<meta property="og:image" content="http://blog.chinaunix.net/attachment/201211/14/26413668_13528760002w4J.jpg">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_21.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_10.png">
+<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Wireshark学习笔记">
+<meta name="twitter:description" content="上周集中花时间学习了解了一下网络抓包工具 Wireshark, 一个非常强大的网络抓包工具, 而且是开源免费的. 通过wireshark工具对于之前学习了解到的计算机网络知识重新复习了一遍, 将之前书上的理论知识真正通过能够通过工具可视化落地理解, 并进而真正解决很多实际的网络问题. 建议大学的计算机课程, 应该在教授计算机网络这门课程的时候, 可以将这个工具作为实验传递给学生.">
+<meta name="twitter:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_2.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/24/wireshark-study-note/"/>
+
+
+
+
+
+  <title>Wireshark学习笔记 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/24/wireshark-study-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Wireshark学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T15:14:54+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>上周集中花时间学习了解了一下网络抓包工具 <strong>Wireshark</strong>, 一个非常强大的网络抓包工具, 而且是开源免费的. 通过wireshark工具对于之前学习了解到的计算机网络知识重新复习了一遍, 将之前书上的理论知识真正通过能够通过工具可视化落地理解, 并进而真正解决很多实际的网络问题. 建议大学的计算机课程, 应该在教授计算机网络这门课程的时候, 可以将这个工具作为实验传递给学生. </p>
+<a id="more"></a>
+<h3 id="Wireshark介绍"><a href="#Wireshark介绍" class="headerlink" title="Wireshark介绍"></a>Wireshark介绍</h3><p>下面是Wireshark的主界面:<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_2.png" alt="wireshar界面"></p>
+<h5 id="功能区"><a href="#功能区" class="headerlink" title="功能区"></a>功能区</h5><p>wiresahrk 提供了具体的功能区块跳转. 主要的几个功能:</p>
+<ul>
+<li>Analyze. 数据包的分析工具. </li>
+<li>Statistics. 对于抓到的数据包进行统计的分析的功能. 主要包括: IO流量统计/协议分层统计/HTTP协议状态码统计/对话统计/终端统计/报文长度统计/报文Ip地址统计等.</li>
+</ul>
+<h5 id="数据包列表区"><a href="#数据包列表区" class="headerlink" title="数据包列表区"></a>数据包列表区</h5><p>以列表的形式, 展示抓取到的网络数据包. 主要包括两个部门:</p>
+<h6 id="列表区"><a href="#列表区" class="headerlink" title="列表区"></a>列表区</h6><p><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_5.png" alt="列表区"><br>列表区主要包括几个部分:</p>
+<ul>
+<li>No. 显示了数据包的序列号</li>
+<li>Time. 发生的时间. 这个可以在 <code>View -&gt; Time Display Format</code> 里面进行转换.</li>
+<li>Source. 数据包的源IP地址</li>
+<li>Destination. 请求的ip地址. </li>
+<li>Protocol. 请求的协议层.</li>
+<li>Length. 数据包的长度</li>
+<li>Info. 数据包的概述. 不同的协议的简单概述是不同的. </li>
+</ul>
+<h6 id="过滤区"><a href="#过滤区" class="headerlink" title="过滤区"></a>过滤区</h6><p><em>过滤区</em> 提供了按照相应的规则, 只显示或者抓取你关系的数据包. 常用的过滤规则包括:</p>
+<ul>
+<li>根据ip地址过滤. <ul>
+<li>ip.host == xxxxx. 过滤包括 xxxxx ip的地址的所有数据包</li>
+<li>ip.src == xxxxx. 过滤来源ip地位为xxxx的数据包</li>
+<li>ip.dst == xxxxx. 过滤目标地址为 xxxx的数据包</li>
+</ul>
+</li>
+<li>根据tcp状况分析. <ul>
+<li>tcp.analysis.duplicate_ack 重复ack的数据包</li>
+<li>tcp.analysis.retransmission 过滤是超时重传的数据包.</li>
+<li>tcp.analysis.out_of_order 过滤数据包乱序的情况</li>
+</ul>
+</li>
+<li>对于http协议过滤<ul>
+<li>http.response.code &gt;= 400. 过滤http请求返回码超过400的数据包.</li>
+</ul>
+</li>
+</ul>
+<p>过滤条件非常多, 想了解更多的过滤条件, 可以点击 <code>过滤区 -&gt; Display Filter Expression</code>. 查找设置更多的过滤条件.<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_9.png" alt="过滤图"></p>
+<h5 id="网络协议分层区"><a href="#网络协议分层区" class="headerlink" title="网络协议分层区."></a>网络协议分层区.</h5><p>非常重要的一个区域. 对于抓到的数据包<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_4.png" alt="网络分层"><br>可以看到一个http请求, 对于请求数据包, 按照TCP/IP的模型, 将数据分为几层. </p>
+<ul>
+<li>物理层</li>
+<li>数据链路层(Ehternet II协议)</li>
+<li>网络层(IP协议)</li>
+<li>传输层(TCP协议)</li>
+<li>应用层(HTTP协议)</li>
+</ul>
+<p>每一层点击进去都可以看到, Wireshark已经按照各个协议的规范, 进行了自动解析和说明. 点击查看不是很难,关键是了解各个层次协议所展示出来的含义. 让我们抓取一个http数据包, 然后逐个协议层分析.</p>
+<ul>
+<li><p>物理层 &amp; 数据链路层<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_15.png" alt="物理层与链路层"><br>物理层显示了这个祯的全部长度, 在这一层具体可以看到相关的信息:<br>数据包长度为 692字节, 抓取的网卡为 en0. epoch时间. 祯的序列号为1064. 过滤的名称为HTTP. 过滤的规则为 <code>http || tcp.port == 80 || http2</code><br>数据链路层比较简单, 接收方物理mac地址为我的苹果电脑mac地址, 以 <code>Apple_</code>开头. 发送方为<code>huaweiTe</code>的路由器. </p>
+</li>
+<li><p>网络层<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_16.png" alt="网络层"><br>开头为简单描述, IP协议为IPV4, IP源地址: 103.218.241.74. 目标地址为: 172.18.206.201.<br>然后是具体的描述. 总共的长度, 校验和等. </p>
+</li>
+<li><p>传输层<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_19.png" alt="传输层"><br>从截图可以看到, 传输层是 TCP的协议, 让我们看下TCP报文格式:<br><img src="http://blog.chinaunix.net/attachment/201211/14/26413668_13528760002w4J.jpg" alt="tcp报文格式"><br>从抓取的数据帧可以看到, 这个祯的 源端口:80, 目的端口: 59649. 序号: 8320, 确认号: 1223等关键信息. 可以和TCP的报文格式对应上. </p>
+</li>
+<li><p>应用层<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_21.png" alt="应用层"><br>从图片中可以看到, 应用层的协议是 HTTP协议. 从http的返回报文头中可以看到以下信息:</p>
+</li>
+<li>协议版本号: http1.1. </li>
+<li>httpd的状态返回码: 200. </li>
+<li>是否允许跨域资源共享: access-control-allow-origin. 服务端返回的 Access-Control-Allow-Origin: * 表明，该资源可以被任意外域访问. 关于CORS可以访问 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">CORS标准</a></li>
+<li><code>cache-control</code> 设置缓存机制. max-age: 600. 代表了请求的结果缓存有效时间为 600s. 具体的http报文头的设置详见 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Cache-Control" target="_blank" rel="noopener">cache-control设置</a></li>
+<li><code>Content-Encoding</code> 设置的解压缩的协议, 这里采用的是 gzip</li>
+<li><code>Content-Type</code> 设置了返回的内容格式, 这里是 <code>text/html</code> 的协议</li>
+<li><code>Last-Modified</code> 代表了请求的内容服务端的最新的修改时间</li>
+<li><code>Server</code>: 服务端的名称</li>
+<li><code>Vary</code>: 告诉缓存中间代理服务器根据什么判断请求资源是否需要更新. 可以参考这篇文章介绍<a href="http://www.cnblogs.com/engeng/articles/5981582.html" target="_blank" rel="noopener">Vary介绍</a>. 这里只有根据 url 和 accept-encoding作为 hash来判断是否需要新的response.</li>
+<li><code>Transfer-Encoding</code>: 设置传输编码为 <code>分块编码(chunked)</code>.这个解释比较复杂, 详细可以参考: <a href="http://network.51cto.com/art/201509/491335.htm" target="_blank" rel="noopener">Transfer-Encoding介绍</a>.</li>
+<li><code>Date</code>: 响应日期</li>
+</ul>
+<h5 id="原始数据区"><a href="#原始数据区" class="headerlink" title="原始数据区"></a>原始数据区</h5><p>以16进制显示抓取到的数据包, 一般很少用到这个区域. </p>
+<h4 id="选择抓包的网卡"><a href="#选择抓包的网卡" class="headerlink" title="选择抓包的网卡"></a>选择抓包的网卡</h4><p><img src="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20170724_10.png" alt="抓包界面"><br>我们选择过滤条件, 这个很重要, 尤其是流量很大的情况下, 如果不选择过滤条件, 将会导致wireshark抓取所有的流量数据, 处理不过来, 导致假死. 所以应该精心设计, 只关注抓取关心的数据包. 另外是, 选择抓取的网卡, 这里我们选择wifi激活的网卡<code>en0</code>.</p>
+<h3 id="tcpdump-命令结合使用"><a href="#tcpdump-命令结合使用" class="headerlink" title="tcpdump 命令结合使用"></a><code>tcpdump</code> 命令结合使用</h3><p>一般线上服务的机器, 都是linux系统, 没有图形化显示界面, 所以你需要将线上的机器网络抓包数据通过 <code>tcpdump</code> 命令抓取down下来, 然后到本地使用 Wireshark工具图形化显示分析.</p>
+<ul>
+<li>使用 <code>tcpdump</code> 抓取数据包. 关键参数 -s 和 -w<br><code>tcpdump -i en0 -s 0 -w down.cap host 61.135.169.125</code> </li>
+<li>代表 抓取网卡<code>en0</code>. </li>
+<li><code>-s</code> 代表抓取的长度. 代表每个数据帧从头开始抓取的长度. 如果设置0, 则代表抓取默认的 65535最大的长度. 这个长度需要仔细思考设计, 因为如果太长, 会导致抓包数据加到, 效率变低. 如果过短, 可能获取不到关键信息.</li>
+<li><code>host 61.135.169.125</code> 代表抓取和ip地址为 <code>61.135.169.125</code> 所有主机交互.</li>
+</ul>
+<p>也可以在tcpdump命令直接加上过滤条件, 在抓包的时候就进行过滤.</p>
+<ul>
+<li>导入cap文件进行分析<br>选择 <code>文件夹</code> 选型导入刚刚抓取到的问题件 <code>down.cap</code></li>
+</ul>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>这里只是简单介绍了Wireshark的使用方法, 具体遇到很多的网络问题, 还是需要在熟悉理解网络基本协议的情况下, 依赖很多的case逐渐培养起解决网络问题的经验. </p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><strong>EMC的网络基本功</strong> <a href="https://www.gitbook.com/book/wizardforcel/network-basic" target="_blank" rel="noopener">https://www.gitbook.com/book/wizardforcel/network-basic</a></li>
+<li><strong>Wireshark 网络分析就是这么简单</strong>. EMC的一个工程师专门讲解Wireshark的使用. 不错的入门书.</li>
+<li><strong>CROS</strong> <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/工具/" rel="tag"># 工具</a>
+          
+            <a href="/tags/网络/" rel="tag"># 网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/19/refactor-read/" rel="next" title="重构-笔记">
+                <i class="fa fa-chevron-left"></i> 重构-笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/25/potato/" rel="prev" title="番茄工作法-笔记">
+                番茄工作法-笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Wireshark介绍"><span class="nav-number">1.</span> <span class="nav-text">Wireshark介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#功能区"><span class="nav-number">1.0.1.</span> <span class="nav-text">功能区</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#数据包列表区"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据包列表区</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#列表区"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">列表区</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#过滤区"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">过滤区</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络协议分层区"><span class="nav-number">1.0.3.</span> <span class="nav-text">网络协议分层区.</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#原始数据区"><span class="nav-number">1.0.4.</span> <span class="nav-text">原始数据区</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择抓包的网卡"><span class="nav-number">1.1.</span> <span class="nav-text">选择抓包的网卡</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcpdump-命令结合使用"><span class="nav-number">2.</span> <span class="nav-text">tcpdump 命令结合使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束"><span class="nav-number">3.</span> <span class="nav-text">结束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
