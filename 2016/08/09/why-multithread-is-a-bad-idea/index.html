@@ -74,6 +74,8 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="奥卡姆剃刀" type="application/atom+xml" />
+
 
 
 
@@ -83,8 +85,8 @@
 <meta name="keywords" content="编程, 效率">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为什么多线程是个坏主意（Why Threads Are A Bad Idea）">
-<meta property="og:url" content="http://yoursite.com/2016/08/09/why-multithread-is-a-bad-idea/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://www.razorer.com/2016/08/09/why-multithread-is-a-bad-idea/index.html">
+<meta property="og:site_name" content="奥卡姆剃刀">
 <meta property="og:description" content="在 Unix编程艺术 中,提到了尽量避免 多线程编程模型, 认为这样只会增加复杂度, 提倡使用多进程, 这样本质上就可以避免多线程『共享内存数据』产生的 “corruotped memory” 问题.">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/razorerSnip20160809_109.png">
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/09/why-multithread-is-a-bad-idea/"/>
+  <link rel="canonical" href="http://www.razorer.com/2016/08/09/why-multithread-is-a-bad-idea/"/>
 
 
 
 
 
-  <title>为什么多线程是个坏主意（Why Threads Are A Bad Idea） | Hexo</title>
+  <title>为什么多线程是个坏主意（Why Threads Are A Bad Idea） | 奥卡姆剃刀</title>
   
 
 
@@ -163,7 +165,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">奥卡姆剃刀</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -194,6 +196,36 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-share">
+          <a href="/share/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-share"></i> <br />
+            
+            share
           </a>
         </li>
       
@@ -240,16 +272,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/09/why-multithread-is-a-bad-idea/">
+    <link itemprop="mainEntityOfPage" href="http://www.razorer.com/2016/08/09/why-multithread-is-a-bad-idea/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
+      <meta itemprop="name" content="Daniel Hu">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="奥卡姆剃刀">
     </span>
 
     
@@ -588,7 +620,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-author-name" itemprop="name">Daniel Hu</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -629,6 +661,13 @@
 
           </nav>
 
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
           
 
           <div class="links-of-author motion-element">
@@ -680,7 +719,7 @@
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">John Doe</span>
+  <span class="author" itemprop="copyrightHolder">Daniel Hu</span>
 
   
 </div>
