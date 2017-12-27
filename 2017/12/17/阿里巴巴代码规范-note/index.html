@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="软件,笔记," />
+  <meta name="keywords" content="软件,代码," />
 
 
 
@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
-<meta name="keywords" content="软件,笔记">
+<meta name="description" content="阿里巴巴在之前的云溪大会上正式发出了 阿里巴巴Java开发手册. 并发布相关的Idea插件. 具体的信息可以到Github主页 p3c查看. 最近将手册重新学习了一遍, 发现在之前的工程项目里面, 有太多不规范的地方. 将特别注意的地方, 重点标记出来.">
+<meta name="keywords" content="软件,代码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="重构-笔记">
-<meta property="og:url" content="http://www.razorer.com/2017/07/19/refactor-read/index.html">
+<meta property="og:title" content="阿里巴巴代码规范-note">
+<meta property="og:url" content="http://www.razorer.com/2017/12/17/阿里巴巴代码规范-note/index.html">
 <meta property="og:site_name" content="奥卡姆剃刀">
-<meta property="og:description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
+<meta property="og:description" content="阿里巴巴在之前的云溪大会上正式发出了 阿里巴巴Java开发手册. 并发布相关的Idea插件. 具体的信息可以到Github主页 p3c查看. 最近将手册重新学习了一遍, 发现在之前的工程项目里面, 有太多不规范的地方. 将特别注意的地方, 重点标记出来.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-12-26T02:32:44.000Z">
+<meta property="og:updated_time" content="2017-12-27T04:08:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="重构-笔记">
-<meta name="twitter:description" content="利用这段开发时间的空余, 又将 重构  这本书学习一遍, 以下是相应的学习笔记摘要.">
+<meta name="twitter:title" content="阿里巴巴代码规范-note">
+<meta name="twitter:description" content="阿里巴巴在之前的云溪大会上正式发出了 阿里巴巴Java开发手册. 并发布相关的Idea插件. 具体的信息可以到Github主页 p3c查看. 最近将手册重新学习了一遍, 发现在之前的工程项目里面, 有太多不规范的地方. 将特别注意的地方, 重点标记出来.">
 
 
 
@@ -122,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://www.razorer.com/2017/07/19/refactor-read/"/>
+  <link rel="canonical" href="http://www.razorer.com/2017/12/17/阿里巴巴代码规范-note/"/>
 
 
 
 
 
-  <title>重构-笔记 | 奥卡姆剃刀</title>
+  <title>阿里巴巴代码规范-note | 奥卡姆剃刀</title>
   
 
 
@@ -299,7 +299,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.razorer.com/2017/07/19/refactor-read/">
+    <link itemprop="mainEntityOfPage" href="http://www.razorer.com/2017/12/17/阿里巴巴代码规范-note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Daniel Hu">
@@ -316,7 +316,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">重构-笔记</h1>
+          <h1 class="post-title" itemprop="name headline">阿里巴巴代码规范-note</h1>
         
 
         <div class="post-meta">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-19T16:34:43+08:00">
-                2017-07-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T12:07:57+08:00">
+                2017-12-17
               </time>
             
 
@@ -346,7 +346,7 @@
 
           
           
-             <span id="/2017/07/19/refactor-read/" class="leancloud_visitors" data-flag-title="重构-笔记">
+             <span id="/2017/12/17/阿里巴巴代码规范-note/" class="leancloud_visitors" data-flag-title="阿里巴巴代码规范-note">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -377,111 +377,52 @@
       
 
       
-        <p>利用这段开发时间的空余, 又将 <strong>重构</strong>  这本书学习一遍, 以下是相应的学习笔记摘要. </p>
+        <p>阿里巴巴在之前的云溪大会上正式发出了 <strong>阿里巴巴Java开发手册</strong>. 并发布相关的Idea插件. 具体的信息可以到Github主页 <a href="https://github.com/alibaba/p3c" target="_blank" rel="noopener">p3c</a>查看. 最近将手册重新学习了一遍, 发现在之前的工程项目里面, 有太多不规范的地方. 将特别注意的地方, 重点标记出来. </p>
 <a id="more"></a>
-<h2 id="重构概念"><a href="#重构概念" class="headerlink" title="重构概念"></a>重构概念</h2><h4 id="重构定义"><a href="#重构定义" class="headerlink" title="重构定义"></a>重构定义</h4><p>对软件内部结构的一种调整, 目的是<em>在不改变软件可观察行为的前提下</em>, 提高其可理解性, 降低其修改成本. </p>
 <ul>
-<li>不仅仅是修改代码, 更是一种高效并且受控的代码整理技术.</li>
-</ul>
-<h4 id="重构的目的"><a href="#重构的目的" class="headerlink" title="重构的目的"></a>重构的目的</h4><ul>
-<li>改进软件设计. 防止代码逐渐<strong>腐烂</strong>. 如果不一直维护, 代码将会逐渐加熵, 越来越复杂, 直到最终代码腐烂掉.</li>
-<li>是代码更加容易理解. 写代码的时间, 远远低于代码维护的时间.  </li>
-<li>重构可以加快开发速度, 快速开发速度. -&gt; 加快开发速度.</li>
-<li>随时重构 -&gt; 持续不断的进行重构. <strong>事不过三, 三则重构</strong></li>
-<li><em>如果我纯粹是为了今天工作, 明天我将完全无法工作</em>. 需要一个更加广阔的视角看待现在的编程工作.</li>
-</ul>
-<h4 id="本质"><a href="#本质" class="headerlink" title="本质:"></a>本质:</h4><pre><code>计算机科学是这样一门科学: 它相信所有问题都可以通过增加一个间接层来解决.
-</code></pre><p>重构的本质是通过在不改变功能的情况下, 增加更多的逻辑分层, 达到简化.抽象 和 共用.</p>
-<h4 id="重构与性能"><a href="#重构与性能" class="headerlink" title="重构与性能"></a>重构与性能</h4><p>原则: 先写出可以运行的软件, 然后再调整程序来获得足够的性能.</p>
-<h2 id="何时进行重构"><a href="#何时进行重构" class="headerlink" title="何时进行重构"></a>何时进行重构</h2><h4 id="重复代码-Duplicate-code"><a href="#重复代码-Duplicate-code" class="headerlink" title="重复代码(Duplicate code)"></a>重复代码(Duplicate code)</h4><p>当idea提示, 有很多相同代码段的时候, 就需要认真考虑了.</p>
-<h4 id="过长函数-Long-method-gt-使用-extract-method"><a href="#过长函数-Long-method-gt-使用-extract-method" class="headerlink" title="过长函数(Long method) -&gt; 使用 extract method."></a>过长函数(Long method) -&gt; 使用 extract method.</h4><p>短函数比长函数好. 程序越长越难以理解. 子程序需要额外的开销.<br>最好不要让函数超过 50 行. 积极的分解函数.<br>原则: <strong>每当感觉需要注释来说明的时候, 我们就需要把说明的东西写入一个独立的函数</strong></p>
-<ul>
-<li>通过replace temp with query. 来消灭临时变量. 过多的临时变量, 将导致函数非常难以阅读.</li>
-<li>逻辑表达式可以提炼成一个单独的函数.</li>
-<li>循环语句可以提炼单独的一个函数.</li>
-</ul>
-<h4 id="过大的类"><a href="#过大的类" class="headerlink" title="过大的类"></a>过大的类</h4><ul>
-<li>使用Extract Class 和 Extract SubClass 将多长类抽取出来. </li>
-</ul>
-<h4 id="过长的参数-Long-Parameter-List"><a href="#过长的参数-Long-Parameter-List" class="headerlink" title="过长的参数(Long Parameter List)"></a>过长的参数(Long Parameter List)</h4><ul>
-<li>过多的变量抽取出总结成一个Class</li>
-</ul>
-<h2 id="测试-重构的基础"><a href="#测试-重构的基础" class="headerlink" title="测试-重构的基础"></a>测试-重构的基础</h2><ul>
-<li><p>确保所有测试都能够完全自动化. 让他们检查自己的测试结果</p>
-<ul>
-<li>不要再写print out 肉眼查看的 unit test了</li>
-<li>写好一点功能之后, 就立即测试, 构筑全面的测试体系</li>
+<li>Object 的 equals 方法容易抛空指针异常. 尽量使用, Objects.equals(JDK7进行比较, 匹配). </li>
+<li>所有的相同类型的 <strong>包装类对象之间值的比较</strong>，全部使用 equals 方法比较. 否则超过128的时候, 会出现bug. </li>
+<li><strong>RPC方法的返回值和参数必须使用包装数据类型</strong> . 防止初始化, 设置了相应的默认值. 这点非常重要</li>
+<li>在 <strong>getter/setter</strong> 方法中，不要增加业务逻辑，增加排查问题的难度. 可以使用lombok依赖包. </li>
+<li>循环体内，字符串的连接方式，<strong>使用 StringBuilder 的 append 方法进行扩展</strong></li>
+<li><strong>ArrayList的subList结果不可强转成ArrayList，否则会抛出ClassCastException</strong> 异常，即java.util.RandomAccessSubList cannot be cast to java.util.ArrayList.</li>
+<li>集合初始化时，指定集合初始值大小。</li>
+<li><strong>创建线程或线程池时请指定有意义的线程名称</strong>，方便出错时回溯.</li>
+<li><strong>线程资源必须通过线程池 供，不允许在应用中自行显式创建线程</strong>. 需要通过线程池进行资源定位. </li>
+<li><strong>线程池不允许使用 Executors 去创建</strong>，而是通过 ThreadPoolExecutor 的方式，这样 的处理方式让写的同学更加明确线程池的运行规则，规避资源耗尽的风险。</li>
+<li>在一个 switch 块内，都<strong>必须包含一个 default 语句并且 放在最后，</strong>即使它什么代码也没有</li>
+<li>尽量避免 if else else if. <strong>超过三层的嵌套使用 卫语句来进行编程.</strong></li>
+<li>类、类属性、类方法的注释必须使用 Javadoc 规范，使用/<em>*内容</em>/格式，不得使用 // xxx 方式.</li>
+<li>方法内部单行注释，<strong>在被注释语句上方另起一行，使用//注释</strong></li>
+<li><strong>获取当前毫秒数 System.currentTimeMillis()</strong>; 而不是 new Date().getTime();</li>
+<li>任何数据结构的构造或初始化，都应指定大小，避免数据结构无限增长吃光内存。</li>
+<li><strong>及时清理不再使用的代码段或配置信息</strong></li>
+<li>对大段代码进行 try-catch，这是不负责任的表现</li>
+<li>有 try 块放到了事务代码中，catch 异常后，如果需要回滚事务，一定要注意手动回 滚事务. <strong>这个需要确定如何执行?</strong></li>
+<li>防止NPE是调用者的责任. 明确出来. 要考虑你使用的对象是否可能为空指针.</li>
+<li>远程调用的时候, 一律要求进行空指针判断. 防止NPE问题的产生. 防止NPE问题, 可以使用JDK8的 optional. <a href="http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html</a>. </li>
+<li>异常信息应该包括两类信息:案发现场信息和异常堆栈信息.</li>
+<li>大量地输出无效日志，不利于系统性能 升，也不利于快速定位错误点.</li>
+<li>好的单元测试必须遵守AIR原则. 必须执行AIR. <ul>
+<li>A 自动化</li>
+<li>I 独立性</li>
+<li>R 可重复</li>
 </ul>
 </li>
-<li><p>测试你担心出错的部分,投入与产出比最大化.</p>
-</li>
-</ul>
-<h2 id="主要的重构方法"><a href="#主要的重构方法" class="headerlink" title="主要的重构方法"></a>主要的重构方法</h2><ul>
-<li><p>Extract Method(抽取函数)</p>
-</li>
-<li><p>Replace Temp with Query(以查询取代临时变量)</p>
-<ul>
-<li>局部变量会使代码难以提炼</li>
-<li>十有八九根本不会造成影响到任何性能问题</li>
-</ul>
-</li>
-<li>Inline Method(内联函数)</li>
-<li>Inline Temp(内联临时变量)</li>
-<li>Introce Explaining Variable(引入解释性变量)<ul>
-<li>表达式复杂而且难以阅读的时候使用</li>
-</ul>
-</li>
-<li><p>Split Temp Variable(分解临时变量)</p>
-<ul>
-<li>每个临时变量应该只用来承担一个责任.</li>
-<li>如果一个变量承担了多个责任, 应该申请多个临时变量 </li>
-</ul>
-</li>
-<li><p>在对象之间进行搬迁(move field &amp; move method)</p>
-<ul>
-<li>迁移函数(一个类有太多的函数 或者 代码太长), 可以再抽离一个类出来. </li>
-<li>迁移变量</li>
-</ul>
-</li>
-<li><p>Extract Class(提炼类)</p>
-</li>
-<li><p>Inline Class(将类内联化)</p>
-</li>
-<li><p>Replace Magic Number with Symbolic Constant(通过字面常量取代法数) </p>
-</li>
-<li><p>取代类型码的各种重构方法</p>
-<ul>
-<li>Replace Type code with Class(通过类的继承关系, 将类型码换掉)</li>
-<li>Replace Type code with Subclass(以子类取代类型码)<ul>
-<li>工厂方法创建子类</li>
-<li>将不同type, 创建不同的子类. </li>
-</ul>
-</li>
-<li>Replace Type code with State/Strategy</li>
-</ul>
-</li>
-<li><p>简化条件表达式</p>
-<ul>
-<li>Decompose Conditional(分解条件表达式) -&gt; 抽取出单独一个方法进行封装</li>
-<li>合并条件表达式(Consolidate Conditional Expression)</li>
-</ul>
-</li>
-<li><p>使用卫语句取代嵌套条件表达式(如果条件及其罕见,单独检查该条件)</p>
-</li>
-<li><p>Introduce Null Object(引入Null 对象),备注: 可以用Guava的 Optional类来代替</p>
-</li>
-<li><p>简化函数调用</p>
-<ul>
-<li>将修改函数 和 查询函数进行分离</li>
-<li>将多个参数调用简化为一个对象调用(比如多个值传递,多个属性为同一个对象, 直接将对象作为参数传递即可)</li>
-<li>使用工厂方法取代构造函数(Replace Constructor with Factory Method)<ul>
-<li>根据参数的个数和类型 -&gt; 选择不同的创建类型</li>
-</ul>
-</li>
-<li>将向下转型的工作封装在函数里面, 不需要将向上转型的任务交给客户端</li>
-<li>使用异常取代错误码</li>
-</ul>
-</li>
+<li>单元测 试中不准使用 System.out 来进行人肉验证，<strong>必须使用 assert 来验证</strong>. 单元测试, 是一个重要而不紧急的事情. </li>
+<li>核心业务、核心应用、核心模块的 <strong>增量代码确保单元测试通过</strong></li>
+<li>在工程规约的应用分层中 到的 DAO 层，Manager 层，可重用度高的 Service，都应该 <strong>进行单元测试。</strong> </li>
+<li>和数据库相关的单元测试，可以设定自动回滚机制，不给数据库造成脏数据</li>
+<li><strong>小数类型为 decimal，禁止使用 float 和 double</strong></li>
+<li>表必备三字段:id, create_time, mod_time. 自增ID, 创建时间, 修改时间.</li>
+<li>不过过早的进行分表, 单表行数超过 500 万行或者单表容量超过 2GB，才推荐进行分库分表。 </li>
+<li>业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引.(建立唯一索引)</li>
+<li>SQL操作消小心: 数据订正时，删除和修改记录时，要先 select，避免出现误删除，确认无误才能执 行更新语句</li>
+<li><strong>@Transactional 事务不要滥用</strong>. 事务会影响数据库的 QPS，另外使用事务的地方需 要考虑各方面的回滚方案，包括缓存回滚、搜索引擎回滚、消息补偿、统计修正 </li>
+<li>在 <strong>Service 层出现异常时，必须记录出错日志到磁盘，尽可能带 上参数信息</strong>，相当于保护案发现场. 一定要保留请求参数. 保留案发现场.</li>
+<li>线上应用不要依赖 SNAPSHOT 版本(安全包除外). </li>
+<li>给 JVM <strong>设置-XX:+HeapDumpOnOutOfMemoryError 参数</strong>，让 JVM 碰到 OOM 场景时输出 dump 信息.</li>
+<li>在线上生产环境，JVM的Xms和Xmx设置一样大小的内存容量，避免在GC 后调整堆 大小带来的压力。</li>
 </ul>
 
       
@@ -502,7 +443,7 @@
           
             <a href="/tags/软件/" rel="tag"># 软件</a>
           
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+            <a href="/tags/代码/" rel="tag"># 代码</a>
           
         </div>
       
@@ -515,8 +456,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/01/01/game/" rel="next" title="政治是达成目标的手段">
-                <i class="fa fa-chevron-left"></i> 政治是达成目标的手段
+              <a href="/2017/12/13/productive-tips/" rel="next" title="程序员效率提升的几点分享">
+                <i class="fa fa-chevron-left"></i> 程序员效率提升的几点分享
               </a>
             
           </div>
@@ -525,8 +466,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/24/wireshark-study-note/" rel="prev" title="Wireshark学习笔记">
-                Wireshark学习笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/12/26/新人管理者培训-md/" rel="prev" title="管理培训总结">
+                管理培训总结 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -605,17 +546,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -684,22 +616,6 @@ var jiathis_config={
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#重构概念"><span class="nav-number">1.</span> <span class="nav-text">重构概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重构定义"><span class="nav-number">1.0.1.</span> <span class="nav-text">重构定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构的目的"><span class="nav-number">1.0.2.</span> <span class="nav-text">重构的目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本质"><span class="nav-number">1.0.3.</span> <span class="nav-text">本质:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重构与性能"><span class="nav-number">1.0.4.</span> <span class="nav-text">重构与性能</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#何时进行重构"><span class="nav-number">2.</span> <span class="nav-text">何时进行重构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#重复代码-Duplicate-code"><span class="nav-number">2.0.1.</span> <span class="nav-text">重复代码(Duplicate code)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长函数-Long-method-gt-使用-extract-method"><span class="nav-number">2.0.2.</span> <span class="nav-text">过长函数(Long method) -&gt; 使用 extract method.</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过大的类"><span class="nav-number">2.0.3.</span> <span class="nav-text">过大的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#过长的参数-Long-Parameter-List"><span class="nav-number">2.0.4.</span> <span class="nav-text">过长的参数(Long Parameter List)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-重构的基础"><span class="nav-number">3.</span> <span class="nav-text">测试-重构的基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要的重构方法"><span class="nav-number">4.</span> <span class="nav-text">主要的重构方法</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
