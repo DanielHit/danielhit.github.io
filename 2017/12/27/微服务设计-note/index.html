@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件,微服务," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="奥卡姆剃刀" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="最近在做交易系统的重构, 整体学习了下 微服务的相关理念. 看了一本书, 微服务设计-豆瓣链接.作者相关信息: Sam Newman. 个人网站地址: sam newman ThoughtWorks技术专家.  以下是具体的笔记内容:">
+<meta name="keywords" content="软件,微服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微服务设计-note">
+<meta property="og:url" content="http://www.razorer.com/2017/12/27/微服务设计-note/index.html">
+<meta property="og:site_name" content="奥卡姆剃刀">
+<meta property="og:description" content="最近在做交易系统的重构, 整体学习了下 微服务的相关理念. 看了一本书, 微服务设计-豆瓣链接.作者相关信息: Sam Newman. 个人网站地址: sam newman ThoughtWorks技术专家.  以下是具体的笔记内容:">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_8.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_9.png">
+<meta property="og:image" content="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_20.png">
+<meta property="og:updated_time" content="2017-12-27T04:01:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微服务设计-note">
+<meta name="twitter:description" content="最近在做交易系统的重构, 整体学习了下 微服务的相关理念. 看了一本书, 微服务设计-豆瓣链接.作者相关信息: Sam Newman. 个人网站地址: sam newman ThoughtWorks技术专家.  以下是具体的笔记内容:">
+<meta name="twitter:image" content="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_8.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.razorer.com/2017/12/27/微服务设计-note/"/>
+
+
+
+
+
+  <title>微服务设计-note | 奥卡姆剃刀</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">奥卡姆剃刀</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-share">
+          <a href="/share/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-share"></i> <br />
+            
+            share
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.razorer.com/2017/12/27/微服务设计-note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Daniel Hu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="奥卡姆剃刀">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微服务设计-note</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T12:00:58+08:00">
+                2017-12-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/12/27/微服务设计-note/" class="leancloud_visitors" data-flag-title="微服务设计-note">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在做交易系统的重构, 整体学习了下 微服务的相关理念. 看了一本书, <a href="https://book.douban.com/subject/26772677/" target="_blank" rel="noopener">微服务设计-豆瓣链接</a>.<br>作者相关信息: <strong>Sam Newman</strong>. 个人网站地址: <a href="http://samnewman.io/" target="_blank" rel="noopener">sam newman</a> ThoughtWorks技术专家. </p>
+<p>以下是具体的笔记内容:</p>
+<a id="more"></a>
+<h2 id="1章-微服务"><a href="#1章-微服务" class="headerlink" title="1章 微服务"></a>1章 微服务</h2><h3 id="微服务定义"><a href="#微服务定义" class="headerlink" title="微服务定义"></a>微服务定义</h3><p>Martin的 <strong>单一职责原则</strong></p>
+<pre><code>把因相同原因而变化的东西聚合到一起，而把因不同原因而变化的东西分离开来
+</code></pre><ul>
+<li><p><a href="SRP:http://programmer.97things.oreilly.com/wiki/index.php/The_Single_Responsibility_Principle" target="_blank" rel="noopener">单一职责原则</a></p>
+</li>
+<li><p>根据业务的边界来确定服务的边界. </p>
+</li>
+<li>经验: 一个微服务应该两周可以完全重写.</li>
+<li>足够小即可, 不要过小.</li>
+</ul>
+<h3 id="自治性"><a href="#自治性" class="headerlink" title="自治性"></a>自治性</h3><p>服务之间均通过网络调用进行通信，从而加强了服务之间的隔离性，避免紧耦合。</p>
+<h3 id="微服务的好处"><a href="#微服务的好处" class="headerlink" title="微服务的好处"></a>微服务的好处</h3><ul>
+<li>技术异构性</li>
+<li>弹性</li>
+<li>扩展性.    </li>
+<li>简化部署和发布 <ul>
+<li>两次发布之间的差异越大. 出错的可能性越大</li>
+</ul>
+</li>
+<li>与组织架构相匹配</li>
+<li>可组合性</li>
+<li>对可替代性的优化</li>
+</ul>
+<h2 id="2章-演化架构师"><a href="#2章-演化架构师" class="headerlink" title="2章 演化架构师"></a>2章 演化架构师</h2><h3 id="软件系统是演化出来的"><a href="#软件系统是演化出来的" class="headerlink" title="软件系统是演化出来的"></a>软件系统是演化出来的</h3><ul>
+<li>对于我们创造的大多数产品来说，交付到客户手里之后，还是要响应客户的变更需求，而不是简单地交给客户一个一成不变的软件包</li>
+<li>软件架构师更像城市规划师. 而不是建筑师.</li>
+<li>架构师应该像城市规划师那样专注在大方向上，只在很有限的情况下参与到非 常具体的细节实现中来</li>
+<li>担心服务之间的交互，而不需要过于关注各个服务内部发生的事</li>
+</ul>
+<h3 id="一个原则性的方法"><a href="#一个原则性的方法" class="headerlink" title="一个原则性的方法"></a>一个原则性的方法</h3><ul>
+<li>Heroku的12原则o: <a href="https://www.12factor.net/" target="_blank" rel="noopener">https://www.12factor.net/</a></li>
+</ul>
+<h3 id="实践和原则的对应关系"><a href="#实践和原则的对应关系" class="headerlink" title="实践和原则的对应关系"></a>实践和原则的对应关系</h3><ul>
+<li>实践, 原则. 原则最好不要超过10个. </li>
+<li>原则基本是很少变的. 而实践随着时间迁移, 会不断进行改变.</li>
+</ul>
+<h3 id="创建代码服务模板"><a href="#创建代码服务模板" class="headerlink" title="创建代码服务模板"></a>创建代码服务模板</h3><p>当开发人员想要实现一个新服务时，所有实现核心属性的那些代码都应该是现 成的。 一些推荐的代码服务模板:</p>
+<ul>
+<li>Dropwizard. <a href="https://github.com/dropwizard/dropwizard" target="_blank" rel="noopener">https://github.com/dropwizard/dropwizard</a></li>
+<li><a href="https://github.com/dropwizard/metrics" target="_blank" rel="noopener">https://github.com/dropwizard/metrics</a></li>
+</ul>
+<h3 id="技术债"><a href="#技术债" class="headerlink" title="技术债"></a>技术债</h3><ul>
+<li>往往因为一些业务的紧急需要而快速上线一些特性, 而忽略了技术的规则和原则. 积累的这些债务, 总一天是是要偿还的.</li>
+</ul>
+<h3 id="集中治理和领导"><a href="#集中治理和领导" class="headerlink" title="集中治理和领导"></a>集中治理和领导</h3><ul>
+<li>架构师的部分职责是治理</li>
+<li>治理通过评估干系人的需求、当前情况及下一步的可能性来确保企业目标的达成，通过排优先级和做决策来设定方向。对于已经达成一致的方向和目标进行监督</li>
+</ul>
+<h3 id="通过微服务系统建设团队-全生命周期"><a href="#通过微服务系统建设团队-全生命周期" class="headerlink" title="通过微服务系统建设团队 - 全生命周期"></a>通过微服务系统建设团队 - 全生命周期</h3><p>微服务架 构中存在多个自治的代码库，每个代码库都有着自己独立的生命周期，这就给更多人提供了对单个服务负责的机会，而当这些人在单个服务上面得到足够锻炼之后，就可以给他们 更多的责任，从而帮助他们逐步达成自己的职业目标.</p>
+<h3 id="建设团队"><a href="#建设团队" class="headerlink" title="建设团队"></a>建设团队</h3><ul>
+<li>对于技术领导人来说，更重要的事情是<strong>帮助你的队友成长</strong>，帮助他们<strong>理解这个愿景</strong>, 并保证他们可以积极地参与到愿景的实现和调整中来</li>
+<li>单独的服务, 全生命周期负责. 更加的锻炼成员.</li>
+</ul>
+<h2 id="3章-如何构建微服务"><a href="#3章-如何构建微服务" class="headerlink" title="3章 如何构建微服务"></a>3章 如何构建微服务</h2><h3 id="核心原则-松耦合-高内聚"><a href="#核心原则-松耦合-高内聚" class="headerlink" title="核心原则: 松耦合 高内聚"></a>核心原则: <strong>松耦合 高内聚</strong></h3><ul>
+<li>能够独立修改及部署单个服务而不需要修改系统的其他部分 </li>
+<li>如果你要 改变某个行为的话，最好能够只在一个地方进行修改，然后就可以尽快地发布</li>
+</ul>
+<h3 id="服务边界"><a href="#服务边界" class="headerlink" title="服务边界"></a>服务边界</h3><h3 id="避免过早划分"><a href="#避免过早划分" class="headerlink" title="避免过早划分"></a>避免过早划分</h3><h3 id="尽量根据业务领域划分服务-而不是技术层面"><a href="#尽量根据业务领域划分服务-而不是技术层面" class="headerlink" title="尽量根据业务领域划分服务, 而不是技术层面."></a>尽量根据业务领域划分服务, 而不是技术层面.</h3><ul>
+<li>洋葱架构. 将一个系统按照技术层面, 划分为多层. 会导致多个系统联动进行频繁的更改.</li>
+</ul>
+<h2 id="5章-集成"><a href="#5章-集成" class="headerlink" title="5章 集成"></a>5章 集成</h2><h3 id="共享数据的问题"><a href="#共享数据的问题" class="headerlink" title="共享数据的问题"></a>共享数据的问题</h3><ul>
+<li>外部系统可以看到内部实现细节</li>
+<li>消费方与特定的技术绑定到了一起</li>
+</ul>
+<h3 id="编排VS协同"><a href="#编排VS协同" class="headerlink" title="编排VS协同"></a>编排VS协同</h3><ul>
+<li>编排: 有一个中心节点控制了所有的任务</li>
+<li>协同: 分布式的. 每一个模块通过订阅来独自处理任务.<ul>
+<li>用异步方式有利于协同方案的实施，从而大大减少服务间 的耦合，这恰恰就是我们为了能独立发布服务而追求的特性</li>
+</ul>
+</li>
+</ul>
+<h3 id="RPC的一些技术评价"><a href="#RPC的一些技术评价" class="headerlink" title="RPC的一些技术评价"></a>RPC的一些技术评价</h3><p>RMI. thrift 通过生成客户端代码虽然带来了一些编写的快速性. 但是会有很多潜在的问题:</p>
+<ul>
+<li>技术耦合</li>
+<li>本地调用和远程调用并不相同.</li>
+</ul>
+<h3 id="异步协作模式"><a href="#异步协作模式" class="headerlink" title="异步协作模式"></a>异步协作模式</h3><ul>
+<li>优点: 能很好的进行解耦.</li>
+<li>缺点: 带来了一定的复杂度.</li>
+</ul>
+<h3 id="响应式扩展"><a href="#响应式扩展" class="headerlink" title="响应式扩展"></a>响应式扩展</h3><p>提供了RxJava的响应式能力.</p>
+<h3 id="DRY原则与微服务"><a href="#DRY原则与微服务" class="headerlink" title="DRY原则与微服务"></a>DRY原则与微服务</h3><p>在微服务内部不要违反 DRY，但在跨服务的情况下可以适当违反 DRY。</p>
+<h3 id="版本管理"><a href="#版本管理" class="headerlink" title="版本管理"></a>版本管理</h3><p>尽可能的延迟接口的改变. 如何尽可能的延迟版本管理问题. </p>
+<h4 id="鲁棒性原则"><a href="#鲁棒性原则" class="headerlink" title="鲁棒性原则"></a>鲁棒性原则</h4><p>客户端尽可能灵活地消费服务响应这一点符合 Postel 法则(也叫作鲁棒性原则，https:// tools.ietf.org/html/rfc761)。该法则认为，系统中的每个模块都应该“宽进严出”，即对自己 发送的东西要严格，对接收的东西则要宽容。</p>
+<h4 id="不同版本共存"><a href="#不同版本共存" class="headerlink" title="不同版本共存"></a>不同版本共存</h4><p>通过在接口Url中增加版本号, 可以提供多个版本号共存的方法.</p>
+<h4 id="单独的API接口层"><a href="#单独的API接口层" class="headerlink" title="单独的API接口层"></a>单独的API接口层</h4><p>BFF(Backends For Frontends，为前端服务的后端)。它允许团队在专 注于给定 UI 的同时，也会处理与之相关的服务端组件。<br>为不同的客户端聚合API接口进行单独的API聚合层.</p>
+<h3 id="如何决定是否使用商业软件还是自己开发"><a href="#如何决定是否使用商业软件还是自己开发" class="headerlink" title="如何决定是否使用商业软件还是自己开发"></a>如何决定是否使用商业软件还是自己开发</h3><p>对于一般规模的组织来说，如果某个软件非常特殊，并且它是你的战略性资产的话，那就 自己构建;如果不是这么特别的话，那就购买</p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><ul>
+<li>无论如何避免数据库集成</li>
+<li>理解REST和RPC之间的取舍，但总是使用REST作为请求/响应模式的起点 • 相比编排，优先选择协同</li>
+<li>避免破坏性修改、理解Postel法则、使用容错性读取器</li>
+<li>将用户界面视为一个组合层</li>
+</ul>
+<h2 id="5章-切分单个服务"><a href="#5章-切分单个服务" class="headerlink" title="5章 切分单个服务"></a>5章 切分单个服务</h2><h3 id="关键是接缝"><a href="#关键是接缝" class="headerlink" title="关键是接缝"></a>关键是接缝</h3><p>在《修改代码的艺术》这本书中，Michael Feathers定义了接缝的概念，从接缝处可以抽取出相对独立的一部分代码，对这部分代码进行修改不会影响系统的其他部分。识别出接缝,不仅仅能够清理代码库，更重要的是，这些被识别出的接缝可以成为服务的边界。</p>
+<h3 id="分解单块系统"><a href="#分解单块系统" class="headerlink" title="分解单块系统"></a>分解单块系统</h3><p>服务拆分之后, 可能会导致单个表的事物变为如何确保多个系统的多个事物一致性, 解决办法?</p>
+<ul>
+<li>再试一次<strong>. </strong>最终一致性**。相对于使用事务来保证系统处于一致的状态，最 终一致性可以接受系统在未来的某个时间达到一致.</li>
+<li>补偿事物. 定位问题困难.</li>
+<li>分布式事物. 利用比较复杂的技术, 来确保不同进程的事物一致性.</li>
+</ul>
+<h3 id="报表服务"><a href="#报表服务" class="headerlink" title="报表服务"></a>报表服务</h3><p>周期性的同步事物数据库到相应的NoSQL中, 提供相应的报表服务.</p>
+<h3 id="修改的代价"><a href="#修改的代价" class="headerlink" title="修改的代价"></a>修改的代价</h3><p><strong>做小的、增量修改</strong>的各种原因，但其中一个关键的好处 是，能够理解做出的那些改变会造成什么影响. 切分成微小的服务. 然后处理相应的逻辑. </p>
+<h3 id="根本原因"><a href="#根本原因" class="headerlink" title="根本原因"></a>根本原因</h3><ul>
+<li>第一件需要理解的事情是，服务一定会慢慢变大，直至大到需要拆分.系统的架构随着时间的推移增量地进行变化。<strong>关键是要在拆分这件事情变得太过昂贵之前</strong>， 意识到你需要做这个拆分。(注释: 如果直到发生了重大事故才明白需要拆分, 太晚了!)</li>
+<li>软件的一个衡量因素-复杂度. 如果一个系统不进行可以的维护和refactor. 其复杂度, 必然是无限上升的.     </li>
+</ul>
+<h2 id="6章-部署"><a href="#6章-部署" class="headerlink" title="6章 部署"></a>6章 部署</h2><h3 id="CI-持续集成"><a href="#CI-持续集成" class="headerlink" title="CI(持续集成)"></a>CI(持续集成)</h3><h3 id="Fabric"><a href="#Fabric" class="headerlink" title="Fabric"></a>Fabric</h3><p><a href="https://www.cnblogs.com/holbrook/archive/2012/03/05/2380398.html" target="_blank" rel="noopener">https://www.cnblogs.com/holbrook/archive/2012/03/05/2380398.html</a></p>
+<h2 id="7章-测试"><a href="#7章-测试" class="headerlink" title="7章 测试"></a>7章 测试</h2><h3 id="测试分类"><a href="#测试分类" class="headerlink" title="测试分类"></a>测试分类</h3><p><img src="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_8.png" alt="测试分类"><br>测试微服务架构的系统跟测试独立系统的区别，很大程度上在于各种类型的自动化 测试。因此，我们将集中精力在自动化测试上面</p>
+<p>测试金字塔模型<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_9.png" alt="测试金字塔"></p>
+<p>越往上的端到端测试需要花费的时间越多. 端到端的测试更多的是业务测试, QA关注较多. 单元测试, Unit Test 更多的是RD自己应该关注的, 提高系统的稳定性.</p>
+<h3 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h3><p>单元测试更多是帮助RD来降低错误率的, 自动化的单元测试. 谁的代码, 谁来写单元测试.<br>打桩，是指为被测服务的请求创建一些有着预设响应的打桩服务.</p>
+<h3 id="脆弱的测试"><a href="#脆弱的测试" class="headerlink" title="脆弱的测试"></a>脆弱的测试</h3><ul>
+<li>在测试中的服务数量越多，测试就会越脆弱，不确定性也就越强. 可能后期就会导致, 我们放弃Unit Test. 这在我们的工程项目中, 一次又一次的发生了.</li>
+<li>单元测试容易成为, Diane Vaughn 所说的异常正常化(the normalization of deviance)的受害者.</li>
+<li>如何解决? Martin Fowler的建议: “Eradicating Non-Determinism in Tests”(<a href="https://martinfowler.com/articles/nonDeterminism.html" target="_blank" rel="noopener">https://martinfowler.com/articles/nonDeterminism.html</a>). 发现脆弱的测试时应该立刻记录下来，当不能立即修复时，需要把它们从测试套件中移除，然后就可以不受打扰地安心修复它们</li>
+</ul>
+<h3 id="部署后再测试"><a href="#部署后再测试" class="headerlink" title="部署后再测试"></a>部署后再测试</h3><ul>
+<li>蓝绿部署. <ul>
+<li>你需要能够切换生产流量到不同的主机(或主机 集群)上。切换可以通过改变 DNS 条目，或更改负载均衡的配置</li>
+<li>使用蓝 / 绿部署可以降低风险，也让你有能力在遇到问题时尽快恢复</li>
+</ul>
+</li>
+</ul>
+<p>蓝绿部署示意图:<br><img src="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171221_20.png" alt="蓝绿部署"></p>
+<ul>
+<li>金丝雀发布<ul>
+<li>金丝雀发布是指通过将部分生产流量引流到新部署的系统，来验证系统是否按预期执</li>
+<li>金丝雀发布与蓝 / 绿发布的不同之处在于，新旧版本共存的时间更长，而且经常会调整流量</li>
+</ul>
+</li>
+</ul>
+<h3 id="平均修复时间胜过平均故障间隔时间-MTBF-VS-MTTR"><a href="#平均修复时间胜过平均故障间隔时间-MTBF-VS-MTTR" class="headerlink" title="平均修复时间胜过平均故障间隔时间. MTBF VS MTTR"></a>平均修复时间胜过平均故障间隔时间. MTBF VS MTTR</h3><ul>
+<li>有一个问题需要注意: <strong>不论测试是多么全面, 线上的bug还是不可避免发生</strong> . 关键是, <strong>能否在故障的快速的时候</strong>, 尽快恢复. </li>
+<li>平均故障间隔时间(Mean Time Between Failures，MTBF) 和平均修复时间(Mean Time To Repair，MTTR)之间的权衡优化。</li>
+<li>减少修复时间的技术可以简单到尽快回滚加上良好的监控(在第 8 章我们将讨论)，类似 蓝 / 绿部署。</li>
+<li>MTTR: <a href="https://en.wikipedia.org/wiki/Mean_time_to_repair" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mean_time_to_repair</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Fault_tolerance" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Fault_tolerance</a></li>
+</ul>
+<h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><ul>
+<li><strong>将系统拆分为较小的微服务 后，跨网络边界调用的次数明显增加了</strong>. 需要定期的进行系统的压力测试, 不断发现系统的bottlenect </li>
+<li>性能测试需要与系统性能的监控同时进行.</li>
+</ul>
+<p>推荐 《敏捷软件测试》, 关于测试有更多详细的介绍.</p>
+<h2 id="8章-监控"><a href="#8章-监控" class="headerlink" title="8章 监控"></a>8章 监控</h2><h3 id="日志-更多的日志"><a href="#日志-更多的日志" class="headerlink" title="日志, 更多的日志"></a>日志, 更多的日志</h3><p>通过ELK日志聚合系统, 聚合更多的日志, 到一起. </p>
+<h3 id="多指标跟踪"><a href="#多指标跟踪" class="headerlink" title="多指标跟踪"></a>多指标跟踪</h3><p>使用Graphite, 进行简单的指标聚合. 美团内部, 提供了太多的数据指标聚合系统, 背后的核心都是 打点上报 到时间序列数据库.</p>
+<h3 id="关联表示-UUID"><a href="#关联表示-UUID" class="headerlink" title="关联表示 UUID"></a>关联表示 UUID</h3><p>使用相应的关联方法. 多个上下游系统, 使用UUID. 然后相互携带. 统一聚合到 日志中心. 底层依赖ELK技术栈. 然后统一收集日志. </p>
+<p>另外, 监控级联的风险, 使用 hystrix组件.</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>最低限度要跟踪请求响应时间。做好之后，可以开始跟踪错误率及应用程序级的指标。</li>
+<li>最低限度要跟踪所有下游服务的健康状态，包括下游调用的响应时间，最好能够跟踪错误率。一些像 Hystrix 这样的库，可以在这方面提供帮助。</li>
+<li>标准化如何收集指标以及存储指标。</li>
+<li>如果可能的话，以标准的格式将日志记录到一个标准的位置。如果每个服务各自使用不同的方式，聚合会非常痛苦!</li>
+<li>聚合CPU之类的主机指标.</li>
+<li>查看单台主机的情况.</li>
+<li>通过单个查询工具对日志进行聚合和存储.</li>
+<li>聚合关联UUID.</li>
+</ul>
+<h2 id="10章-康威定律和系统设计"><a href="#10章-康威定律和系统设计" class="headerlink" title="10章 康威定律和系统设计"></a>10章 康威定律和系统设计</h2><h3 id="康威定律"><a href="#康威定律" class="headerlink" title="康威定律"></a>康威定律</h3><pre><code>任何组织在设计一套系统(广义概念上的系统)时，所交付的设计方案在结构上 都与该组织的沟通结构保持一致    
+</code></pre><ul>
+<li>松耦合组织 VS 紧耦合组织<ul>
+<li>商业组织的系统耦合非常紧密. </li>
+<li>amazon 的两个披萨团队. 一个团队应该达到两个披萨不够吃.</li>
+</ul>
+</li>
+</ul>
+<p>相关链接:</p>
+<ul>
+<li><a href="https://yq.aliyun.com/articles/8611" target="_blank" rel="noopener">https://yq.aliyun.com/articles/8611</a></li>
+<li><a href="http://36kr.com/p/5042735.html" target="_blank" rel="noopener">http://36kr.com/p/5042735.html</a></li>
+</ul>
+<h3 id="服务所有权"><a href="#服务所有权" class="headerlink" title="服务所有权"></a>服务所有权</h3><p>所有 权延伸到服务的方方面面，从应用程序的需求、构建、部署到运维。它把决定权交给最合适的人，赋予团队更多的权力和自治，也使 其对工作更负责. <strong>Eat your dog food!</strong></p>
+<ul>
+<li>成员轮换<br>成员时不时地在这些团队之间轮换，但往往长时间留在这个业务线，以确保团队成员可以更好地建立业务线的领域知识</li>
+<li>如何构建高并发.安全.稳定 的交易系统.</li>
+</ul>
+<h3 id="人"><a href="#人" class="headerlink" title="人"></a>人</h3><pre><code>“不管一开始看起来什么样，它永远是人的问题。” 
+            ——杰拉尔德 • 温伯格，咨询第二定律
+</code></pre><h2 id="11章-规模化微服务"><a href="#11章-规模化微服务" class="headerlink" title="11章 规模化微服务"></a>11章 规模化微服务</h2><h3 id="故障无处不在"><a href="#故障无处不在" class="headerlink" title="故障无处不在"></a>故障无处不在</h3><p><a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing</a>. 分布式计算的谬论:</p>
+<ul>
+<li>网络是可靠的.</li>
+<li>延时为0</li>
+<li>带宽是无限制的</li>
+<li>网络是安全的</li>
+<li>拓扑是不会变的</li>
+<li>只有一个管理员</li>
+<li>传输成本为0</li>
+<li>网络是是均匀的.<br>针对谬误, 软件设计和开发过程中, 需要做一些降级去处理这些问题, 拥抱这些故障.</li>
+</ul>
+<h3 id="系统指标"><a href="#系统指标" class="headerlink" title="系统指标"></a>系统指标</h3><ul>
+<li>响应时间</li>
+<li>可用性</li>
+<li>数据持久性</li>
+</ul>
+<h3 id="功能降级"><a href="#功能降级" class="headerlink" title="功能降级"></a>功能降级</h3><p>从业务角度来思考, 我们该如何对不同的系统优雅的降级使用.</p>
+<h3 id="架构性安全措施"><a href="#架构性安全措施" class="headerlink" title="架构性安全措施"></a>架构性安全措施</h3><p>有一些模式，组合起来被称为架构性安全措施，它们可以确保如果事情真的出错了，不会引起严重的<strong>级联影响</strong>. </p>
+<p><strong>如何来解决下游服务的不可用, 导致一个依赖服务拖垮我们整个服务, 耗尽对外的http线程池?</strong></p>
+<h3 id="反脆弱性在netflix中的使用"><a href="#反脆弱性在netflix中的使用" class="headerlink" title="反脆弱性在netflix中的使用"></a>反脆弱性在netflix中的使用</h3><p><a href="http://queue.acm.org/detail.cfm?id=2499552" target="_blank" rel="noopener">反脆弱性在netflix上的使用</a></p>
+<ul>
+<li>Netflix通过引发故障来确保其系统的容错性</li>
+<li>谷歌通过 DiRt. 灾难恢复测试来测试系统. </li>
+<li><p>Netflix chaos monkey. 随机停掉服务器. 制造混乱</p>
+<ul>
+<li>Simian Army</li>
+<li>Latency Monkey</li>
+<li><a href="https://github.com/netflix/chaosmonkey" target="_blank" rel="noopener">chaos monkey</a></li>
+</ul>
+</li>
+<li><p>正确设置超时时间.</p>
+<ul>
+<li>设置默认超时时间, 防止超长时间等待.</li>
+</ul>
+</li>
+<li>实现仓壁隔离不同线程池<ul>
+<li>实现不同业务的线程池隔离. 推荐 netflix的hystrix解决方案. </li>
+</ul>
+</li>
+<li>实现断路器<ul>
+<li>当对下游资源的请求发生一定数量的失败后，断路器会打开</li>
+<li>断路器模式 <a href="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171219_290.png" target="_blank" rel="noopener">断路器</a></li>
+</ul>
+</li>
+<li>隔离<ul>
+<li>一个服务越依赖于另一个，另一个服务的健康将越能影响其正常工作的能力.</li>
+</ul>
+</li>
+</ul>
+<h3 id="幂等"><a href="#幂等" class="headerlink" title="幂等"></a>幂等</h3><pre><code>- 多次执行操作和一次执行操作幂等. 退款就应该是这样. 重复支付失败. 
+- 如何进行隔离? 如何隔离? 
+</code></pre><h3 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h3><ul>
+<li>是把所有的微服务实例都 放在一个独立的 VLAN 里。VLAN 是一个虚拟局域网，所有的外部请求只能通过一个路由 器访问内部。在这个例子中，这个路由器也就是 SSL 终端负载均衡器。VLAN 外部跟微服 务通信的唯一方式是通过 HTTPS，而内部的所有通信都是通过 HTTP. 内部的负载均衡. nginx只用来进行SSL加密通信.</li>
+</ul>
+<h3 id="重新设计"><a href="#重新设计" class="headerlink" title="重新设计"></a>重新设计</h3><p>你的设计应该“考虑 10 倍容量的增长，但超过 100 倍容量时就要重写 了”。在某些时刻，你需要做一些相当激进的事情，以支持负载容量增加到下一个级别。 参考: <a href="https://static.googleusercontent.com/media/research.google.com/zh-CN//people/jeff/SDM09-keynote.pdf" target="_blank" rel="noopener">Challenges in Building Large-Scale Information Retrieval Systems</a></p>
+<h3 id="扩展数据库"><a href="#扩展数据库" class="headerlink" title="扩展数据库"></a>扩展数据库</h3><ul>
+<li>服务可用性 VS 数据持久性. 不同的概念. </li>
+<li>扩展读取. <ul>
+<li>读从库. 可能会有数据一致性问题. CAP原理</li>
+<li>读缓存.</li>
+</ul>
+</li>
+<li>扩展写<ul>
+<li>Hash -&gt; 分片. mysql. 分库分表. 缓解压力</li>
+<li>问题. 如何进行跨分片的查询. 同步到NOSQL进行查询.</li>
+<li>内存计算.聚合返回 / 替代的读数据库包含所有数据. ES.</li>
+<li>mongdb . cassandra. 替换的选择. NOSQL数据库. </li>
+</ul>
+</li>
+<li>CQRS. (command-query responsibility segregation).<ul>
+<li>将查询和修改状态的请求命令进行隔离.</li>
+<li>CQRS的说明和解释 <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank" rel="noopener">Martin Fowler: CQRS</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h3><ul>
+<li><p>客户端缓存</p>
+<ul>
+<li>可以减少客户端调用次数</li>
+<li>无法使全部消费者同时发生变化</li>
+</ul>
+</li>
+<li><p>服务端缓存</p>
+<ul>
+<li>一切对客户端都是不透明的，它们不需要关心任何事情。缓存在服务 器外围或服务器限界内时，很容易了解一些类似数据是否失效这样的事情，还可以跟踪 和优化缓存命中率.</li>
+</ul>
+</li>
+<li><p>代理服务器缓存</p>
+<ul>
+<li>不需要每次查询. </li>
+</ul>
+</li>
+<li><p>HTTP缓存</p>
+<ul>
+<li>cache-control. 控制是否需要缓存该时间.</li>
+<li>expires头部, 失效时间.</li>
+<li>Etag. 可以发送缓存内容的最新版本号.</li>
+</ul>
+</li>
+<li><p>为写试用缓存</p>
+<ul>
+<li>后写式缓存(writebehind) - 批量处理操作. <ul>
+<li>如果你使用后写式(writebehind)缓存，可以先写入本地缓存中，并在之后的 某个时刻将缓存中的数据写入下游的、可能更规范化的数据源中</li>
+<li><a href="http://witmax.cn/cache-writing-policies.html" target="_blank" rel="noopener">write-back</a></li>
+<li><a href="http://blog.csdn.net/user_friendly/article/details/7955298" target="_blank" rel="noopener">cache写机制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>防止缓存突然全部失效<br><a href="http://7xrppw.com1.z0.glb.clouddn.com/Snip20171219_291.png" target="_blank" rel="noopener">保护源服务 - 后台重建缓存</a></p>
+</li>
+<li><p>保持简单<br>缓存越多，就越难评估任何数据的新鲜程度</p>
+</li>
+</ul>
+<h3 id="CAP原理"><a href="#CAP原理" class="headerlink" title="CAP原理"></a>CAP原理</h3><p>在分布式系统中有三方面需要彼 此权衡:一致性(consistency)、可用性(availability)和分区容忍性(partition tolerance)。 具体地说，这个定理告诉我们最多只能保证三个中的两个。</p>
+<ul>
+<li>需要根据你的业务来具体判断, 你的系统需求属性. 比如: 我们的系统作为一个整体，不需要全部是 AP 或 CP 的. </li>
+</ul>
+<h3 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h3><ul>
+<li><p>动态服务机制</p>
+<ul>
+<li><p><strong>zookeeper</strong>. 树形的结构, 可以增加新的节点. 复杂的选举机制,来确保可用性.Zookeeper 的核心是提供了一个用于存储信息的分层命名空间</p>
+</li>
+<li><p><strong>Consul</strong>. Consul 提供的杀手级特性之一是，它实际上提供了现成的 DNS 服务器. 网址: <a href="http://www.consul.io/" target="_blank" rel="noopener">http://www.consul.io/</a>. 项目github地址: <a href="https://github.com/hashicorp/consul" target="_blank" rel="noopener">https://github.com/hashicorp/consul</a></p>
+</li>
+<li><p><strong>Eureka</strong>. netflix提供的服务发现功能.Netflix 的开源系统 Eureka(<a href="https://github.com/Netflix/eureka" target="_blank" rel="noopener">https://github.com/Netflix/eureka</a>)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="文档服务"><a href="#文档服务" class="headerlink" title="文档服务"></a>文档服务</h3><p>API文档服务解决方案: Swagger. 用动态的接口来展示文档.</p>
+<h2 id="12章-总结"><a href="#12章-总结" class="headerlink" title="12章 - 总结"></a>12章 - 总结</h2><h3 id="坚持反脆弱性信条"><a href="#坚持反脆弱性信条" class="headerlink" title="坚持反脆弱性信条"></a>坚持反脆弱性信条</h3><p>心中持有反脆弱的信条，预期在任何地方都会发生故障，这说明我们正走在正确 的路上. </p>
+<ul>
+<li>设置 超时</li>
+<li>使用 仓壁和断路器</li>
+</ul>
+<h3 id="实现微服务体系化"><a href="#实现微服务体系化" class="headerlink" title="实现微服务体系化"></a>实现微服务体系化</h3><ul>
+<li>围绕业务概念建模</li>
+<li>接收自动化文化<ul>
+<li>接受自动化测试工作</li>
+</ul>
+</li>
+<li>隐藏内部实现细节 <ul>
+<li>隐藏数据库</li>
+</ul>
+</li>
+<li>一切都去中心化</li>
+<li>可独立部署<ul>
+<li>蓝绿部署. 灰度部署, 经历一个完整的高峰期.</li>
+<li>金丝雀部署技术. 区分部署和发布.</li>
+</ul>
+</li>
+<li>隔离失败<ul>
+<li>断路器</li>
+<li>仓壁模式</li>
+</ul>
+</li>
+<li>高度可观察<ul>
+<li>通过语义监控</li>
+<li>聚合日志和数据</li>
+</ul>
+</li>
+</ul>
+<h2 id="ChangeLog"><a href="#ChangeLog" class="headerlink" title="ChangeLog"></a>ChangeLog</h2><p>12/19/17 完成11章节和12章节笔记.<br>12/27/17 完成全部章节笔记</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件/" rel="tag"># 软件</a>
+          
+            <a href="/tags/微服务/" rel="tag"># 微服务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/26/新人管理者培训-md/" rel="next" title="管理培训总结">
+                <i class="fa fa-chevron-left"></i> 管理培训总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Daniel Hu</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1章-微服务"><span class="nav-number">1.</span> <span class="nav-text">1章 微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#微服务定义"><span class="nav-number">1.1.</span> <span class="nav-text">微服务定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自治性"><span class="nav-number">1.2.</span> <span class="nav-text">自治性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#微服务的好处"><span class="nav-number">1.3.</span> <span class="nav-text">微服务的好处</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2章-演化架构师"><span class="nav-number">2.</span> <span class="nav-text">2章 演化架构师</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件系统是演化出来的"><span class="nav-number">2.1.</span> <span class="nav-text">软件系统是演化出来的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一个原则性的方法"><span class="nav-number">2.2.</span> <span class="nav-text">一个原则性的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实践和原则的对应关系"><span class="nav-number">2.3.</span> <span class="nav-text">实践和原则的对应关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建代码服务模板"><span class="nav-number">2.4.</span> <span class="nav-text">创建代码服务模板</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#技术债"><span class="nav-number">2.5.</span> <span class="nav-text">技术债</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集中治理和领导"><span class="nav-number">2.6.</span> <span class="nav-text">集中治理和领导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过微服务系统建设团队-全生命周期"><span class="nav-number">2.7.</span> <span class="nav-text">通过微服务系统建设团队 - 全生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#建设团队"><span class="nav-number">2.8.</span> <span class="nav-text">建设团队</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3章-如何构建微服务"><span class="nav-number">3.</span> <span class="nav-text">3章 如何构建微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心原则-松耦合-高内聚"><span class="nav-number">3.1.</span> <span class="nav-text">核心原则: 松耦合 高内聚</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务边界"><span class="nav-number">3.2.</span> <span class="nav-text">服务边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免过早划分"><span class="nav-number">3.3.</span> <span class="nav-text">避免过早划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量根据业务领域划分服务-而不是技术层面"><span class="nav-number">3.4.</span> <span class="nav-text">尽量根据业务领域划分服务, 而不是技术层面.</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5章-集成"><span class="nav-number">4.</span> <span class="nav-text">5章 集成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#共享数据的问题"><span class="nav-number">4.1.</span> <span class="nav-text">共享数据的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编排VS协同"><span class="nav-number">4.2.</span> <span class="nav-text">编排VS协同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RPC的一些技术评价"><span class="nav-number">4.3.</span> <span class="nav-text">RPC的一些技术评价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步协作模式"><span class="nav-number">4.4.</span> <span class="nav-text">异步协作模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应式扩展"><span class="nav-number">4.5.</span> <span class="nav-text">响应式扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DRY原则与微服务"><span class="nav-number">4.6.</span> <span class="nav-text">DRY原则与微服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本管理"><span class="nav-number">4.7.</span> <span class="nav-text">版本管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#鲁棒性原则"><span class="nav-number">4.7.1.</span> <span class="nav-text">鲁棒性原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同版本共存"><span class="nav-number">4.7.2.</span> <span class="nav-text">不同版本共存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#单独的API接口层"><span class="nav-number">4.7.3.</span> <span class="nav-text">单独的API接口层</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何决定是否使用商业软件还是自己开发"><span class="nav-number">4.8.</span> <span class="nav-text">如何决定是否使用商业软件还是自己开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">4.9.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5章-切分单个服务"><span class="nav-number">5.</span> <span class="nav-text">5章 切分单个服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关键是接缝"><span class="nav-number">5.1.</span> <span class="nav-text">关键是接缝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分解单块系统"><span class="nav-number">5.2.</span> <span class="nav-text">分解单块系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#报表服务"><span class="nav-number">5.3.</span> <span class="nav-text">报表服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改的代价"><span class="nav-number">5.4.</span> <span class="nav-text">修改的代价</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根本原因"><span class="nav-number">5.5.</span> <span class="nav-text">根本原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6章-部署"><span class="nav-number">6.</span> <span class="nav-text">6章 部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CI-持续集成"><span class="nav-number">6.1.</span> <span class="nav-text">CI(持续集成)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fabric"><span class="nav-number">6.2.</span> <span class="nav-text">Fabric</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7章-测试"><span class="nav-number">7.</span> <span class="nav-text">7章 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试分类"><span class="nav-number">7.1.</span> <span class="nav-text">测试分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单元测试"><span class="nav-number">7.2.</span> <span class="nav-text">单元测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脆弱的测试"><span class="nav-number">7.3.</span> <span class="nav-text">脆弱的测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#部署后再测试"><span class="nav-number">7.4.</span> <span class="nav-text">部署后再测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平均修复时间胜过平均故障间隔时间-MTBF-VS-MTTR"><span class="nav-number">7.5.</span> <span class="nav-text">平均修复时间胜过平均故障间隔时间. MTBF VS MTTR</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#性能测试"><span class="nav-number">7.6.</span> <span class="nav-text">性能测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8章-监控"><span class="nav-number">8.</span> <span class="nav-text">8章 监控</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日志-更多的日志"><span class="nav-number">8.1.</span> <span class="nav-text">日志, 更多的日志</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多指标跟踪"><span class="nav-number">8.2.</span> <span class="nav-text">多指标跟踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联表示-UUID"><span class="nav-number">8.3.</span> <span class="nav-text">关联表示 UUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">8.4.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10章-康威定律和系统设计"><span class="nav-number">9.</span> <span class="nav-text">10章 康威定律和系统设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#康威定律"><span class="nav-number">9.1.</span> <span class="nav-text">康威定律</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务所有权"><span class="nav-number">9.2.</span> <span class="nav-text">服务所有权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#人"><span class="nav-number">9.3.</span> <span class="nav-text">人</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11章-规模化微服务"><span class="nav-number">10.</span> <span class="nav-text">11章 规模化微服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#故障无处不在"><span class="nav-number">10.1.</span> <span class="nav-text">故障无处不在</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统指标"><span class="nav-number">10.2.</span> <span class="nav-text">系统指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能降级"><span class="nav-number">10.3.</span> <span class="nav-text">功能降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#架构性安全措施"><span class="nav-number">10.4.</span> <span class="nav-text">架构性安全措施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反脆弱性在netflix中的使用"><span class="nav-number">10.5.</span> <span class="nav-text">反脆弱性在netflix中的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#幂等"><span class="nav-number">10.6.</span> <span class="nav-text">幂等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡"><span class="nav-number">10.7.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重新设计"><span class="nav-number">10.8.</span> <span class="nav-text">重新设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展数据库"><span class="nav-number">10.9.</span> <span class="nav-text">扩展数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用缓存"><span class="nav-number">10.10.</span> <span class="nav-text">使用缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP原理"><span class="nav-number">10.11.</span> <span class="nav-text">CAP原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务发现"><span class="nav-number">10.12.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文档服务"><span class="nav-number">10.13.</span> <span class="nav-text">文档服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12章-总结"><span class="nav-number">11.</span> <span class="nav-text">12章 - 总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#坚持反脆弱性信条"><span class="nav-number">11.1.</span> <span class="nav-text">坚持反脆弱性信条</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现微服务体系化"><span class="nav-number">11.2.</span> <span class="nav-text">实现微服务体系化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ChangeLog"><span class="nav-number">12.</span> <span class="nav-text">ChangeLog</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Daniel Hu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("8Rss4WF8otBw0uCUUPc1qNMn-gzGzoHsz", "bujTaYlO7kWL7dxeMa6lQl5G");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
