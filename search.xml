@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[软件的部署与设计-note]]></title>
     <url>%2F2018%2F01%2F15%2Fsoftware-release%2F</url>
-    <content type="text"><![CDATA[最近看完了关于软件稳定性设计的一本书, 下面是本书的相关思维导图.]]></content>
+    <content type="text"><![CDATA[最近看完了关于软件稳定性设计的一本书-《发布!软件的设计与部署》,从稳定性的模式与反模式来介绍了如何构建高可用的软件系统, 感觉受益很大. 下面是本书的相关思维导图.]]></content>
       <tags>
         <tag>软件工程</tag>
       </tags>
